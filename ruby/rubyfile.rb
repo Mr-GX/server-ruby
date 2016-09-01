@@ -19,7 +19,7 @@ file.close
 =end
 
 #正则表达式匹配逐行，打印文件数据
-pattern=Regexp.new(ARGV[0])
+pattern=Regexp.new(ARGV[0])#正则转化
 file=File.open(ARGV[1])
 file.each_line do |line_data|
 	if  pattern =~ line_data.force_encoding("UTF-8")#编码转化
