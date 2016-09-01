@@ -1,4 +1,4 @@
-#控制语句相关的test
+#ruby 条件判断 false、nil为假，其余为真
 
 #puts("控制语句test=#{2<2}")
 
