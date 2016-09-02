@@ -38,6 +38,23 @@ end
 puts(max(10,5))
 
 #定义带块的方法
-def method_name
-	
+def yield_func
+	while true
+		yield
+	end
 end
+
+num=1
+yield_func do 
+	puts("num is #{num}")
+	if num>100
+		break
+	end
+	num *= 2
+end
+
+#参数个数不确定的方法 所有参数会被封装成数组传递 不确定个数的参数将接收传递的未利用到的参数
+def dymic_param_func(*param,param1)
+	[param,param1]
+end
+p(dymic_param_func(1,2,3)) #[[1, 2], 3]
