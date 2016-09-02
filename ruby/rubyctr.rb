@@ -56,21 +56,3 @@ end
 a,b=20,10
 puts("a大于b") if a>b
 puts("a大于b") unless a<=b
-
-=begin
-#while循环语句
-i=1
-while i<=10
-	puts("while循环输出=#{i}")
-	i=i+1
-end
-=end
-
-=begin
-#times循环语句 重复做确定的次数
-count=5
-count.times do
-puts("循环次数确定的迭代器语句test")
-end
-=end
-
