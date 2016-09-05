@@ -58,3 +58,45 @@ def dymic_param_func(*param,param1)
 	[param,param1]
 end
 p(dymic_param_func(1,2,3)) #[[1, 2], 3]
+
+#关键字参数构成的方法 指定参数的默认值 将参数名和值成对的传递  可以改变参数的顺序或者省略一些参数
+#**param会把参数列表以外的关键字参数以散列（hashmap）对象的形式保存
+def key_param_func(x:0,y:0,z:0,**param)
+	xy=x*y
+	xz=x*z
+	yz=y*z
+	return (xy+xz+yz)*2
+end
+puts(key_param_func(x:2,y:3,z:4))
+puts(key_param_func(z:4,y:3,x:2))
+puts(key_param_func(x:2,z:4))
+puts(key_param_func(x:2,y:3,z:4,v:5,w:6))
+
+#关键字参数和普通参数搭配的方法  普通参数必须传值、关键字参数可以使用默认值、关键字参数可以用散列传递
+def key_nomal_param_func(a,b:1,c:2)
+	print(a,b,c,"\n")
+end
+key_nomal_param_func(0)
+key_nomal_param_func(1,b:2,c:3)
+params={b:2,c:3}
+key_nomal_param_func(1,params)
+
+#方法调用的补充
+#1.把数组分解为参数
+def ary_param_func(a,b,c)
+	a+b+c
+end
+
+puts(ary_param_func(1,2,3))
+args=[2,3]
+puts(ary_param_func(1,*args))
+args1=[1,2,3]
+puts(ary_param_func(*args1))
+
+#2.把散列作为参数传递，{}可以省略
+def hash_param_func(args,args1)
+	[args,args1]
+end
+
+puts(hash_param_func(1,{a:2,b:3}))
+puts(hash_param_func(1,a:2,b:3))
