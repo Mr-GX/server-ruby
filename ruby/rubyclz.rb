@@ -120,7 +120,11 @@ public/private/protected 不指定参数时 以下的方法都被定义为相应
 没有指定访问级别的方法默认是public initialize方法通常被定义为private
 =end
 class LimitFunc
-	protected x,y
+	attr_accessor :x,:y
+	protected :x=,:y=
+	def initialize(x=0.0,y=0.0)
+		@x,@y=x,y
+	end
 	def pub
 		puts("this is a public method")
 	end
@@ -133,3 +137,44 @@ end
 
 #扩展类
 #1.在原有类的基础上添加方法
+class String
+	def count_str
+		self.split(/\s/).size
+	end
+end
+puts("This is a base add func".count_str)
+
+#2.继承 共同功能定义在父类，独自功能定义在子类  calss 类名 < 父类名
+#默认父类Object < BasicObject 可以使用instance_methods方法返回符号形式的实例方法列表
+class ExtendsClz < Array
+	def [](i)
+		idx=i%size
+		super(idx)
+	end
+end
+wday=ExtendsClz["金","木","水","火","土"]
+puts(wday[2])
+puts(wday[5])
+
+#alias 给已经存在的方法设置别名 
+#alias 别名 原名   (直接使用方法名)
+#alias :别名 :原名 (使用符号名)
+class AliasClz
+	def hello
+		"Hello"
+	end
+end
+
+class AliasClz1 < AliasClz
+	alias org_hello hello
+	def hello
+		"#{org_hello},Show Again"
+	end
+end
+aliasObj=AliasClz1.new
+puts(aliasObj.org_hello)
+puts(aliasObj.hello)
+
+#undef 删除已经存在的方法的定义 如：在子类中删除父类定义的方法时
+#undef 方法名  (直接使用方法名)
+#undef :方法名 (使用符号名)
