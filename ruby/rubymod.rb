@@ -36,6 +36,7 @@ module HelloModule
 		puts("Hello,#{name}")
 	end
 	module_function :hello #指定hello方法为模块方法
+	public :hello
 end
 
 puts(HelloModule::Version) #通过模块名访问常量
@@ -44,3 +45,62 @@ HelloModule.hello("Ruby")
 include HelloModule
 puts(Version)
 hello("使用include方法调用模块内的方法")
+
+#Mix-in 类include模块后，模块中定义的方法就可以作为类的实例方法供程序调用
+=begin
+1.使用include?方法判断类是否包含某个模块
+2.类的实例在调用方法时，Ruby会按类Class、模块Module、类的父类Object顺序查找方法，并执行第一个找到的方法
+3.使用ancestors或superclass方法查看类的继承关系，而superclass获取的是其直接父类
+=end
+class ExtendsRelation
+	include HelloModule
+end
+ExtendsRelation.new.hello("Ruby")
+p(ExtendsRelation.ancestors)
+p(ExtendsRelation.superclass)
+
+#Ruby不允许多个父类的单一继承模型，通过Mix-in保持单一继承关系和同时让多个类共享其他功能
+=begin
+#使用Mix-in时方法的查找顺序
+1.同继承关系一样，原类中已经定义了同名的方法时，优先使用Module中的该方法。
+2.在同一个类中包含多个模块时，优先使用最后一个包含的模块。
+3.嵌套include时，查找顺序也是线性的。
+4.相同的模块被包含两次以上时，第二次以后的会被省略。
+=end
+module M1
+end
+
+module M2
+end
+
+module M3
+	include M2
+end
+
+class C
+	include M1
+	include M3
+end
+
+class C1
+	include M1
+	include M2
+	include M1
+end
+
+p(C.ancestors) #=>[C, M3, M2, M1, Object, HelloModule, Kernel, BasicObject]
+p(C1.ancestors) #=>[C1, M2, M1, Object, HelloModule, Kernel, BasicObject]
+
+#extend方法 使用Obeject#extend方法可以实现批量定义单例方法 extend方法可以使单例类包含模块并把模块中的功能扩展到对象中
+module Edition
+	def edition(n)
+		"#{self} 第#{n}版"
+	end
+end
+
+str="Ruby基础教程"
+str.extend(Edition)
+puts(str.edition(4))
+
+#类使用extend继承module相当于继承父类，其方法可以被类直接调用
+#类使用include引用module后需要类的实例调用其方法（例子ExtendsRelation）
