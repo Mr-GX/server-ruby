@@ -72,3 +72,65 @@ def total(from,to)
 end
 puts(total(1,10))
 puts(total(1,10){|num| num**2})
+
+#控制块的执行
+n=total(1,10) do |num|
+	if num%2 != 0
+		next 0 #中断当前处理，向下执行。使用next后执行块的yield会返回，如果未指定任何参数返回nil
+	end
+	num
+end
+puts(n)
+
+#将块封装成对象
+=begin
+Ruby可以把block块作为对象处理，这样块就可以在接收块的方法之外执行块，或把块交给其他方法执行
+需要用到Proc对象，Proc对象是可以让块作为对象在程序中使用的类。
+定义Proc对象的典型方法是调用Proc.new方法这个带块的方法。然后调用Proc对象的call方法
+=end
+hello=Proc.new do |name|
+	puts("Hello,#{name}")
+end
+hello.call("Ruby")
+
+#方法参数中加入 &block参数(也叫Proc对象参数) Ruby会自动把调用方法时传入的块封装成Proc对象
+def total2(from,to,&block)
+	result=0
+	from.upto(to) do |num|
+		if block
+			result+=block.call(num)
+		else
+			result+=num
+		end
+	end
+	return result
+end
+puts(total2(1,10))
+puts(total2(1,10){|num| num**2})
+
+#将Proc对象作为块传给其他方法处理
+def call_each(ary,&block)
+	ary.each(&block)
+end
+call_each [1,2,3] do |item|
+	puts(item)
+end
+
+#局部变量和块变量  块内部的命名空间和块外部是共享的 块外部的变量也就是局部变量 块内部的变量可以与块外部的变量同名（Ruby认为是不同的变量）
+x=1
+y=1
+ary=[1,2,3]
+ary.each do |x|
+	y=x
+end
+puts("[#{x},#{y}]")
+#块内部定义的变量不能被外部访问，只能在块内部使用
+#块局部变量通过在块变量后加;区分的方式来定义的块局部变量
+x=y=z=0
+ary=[1,2,3]
+ary.each do |x;y|	#y是块局部变量，x是块变量
+	y=x				#块变量x赋值给块局部变量y
+	z=x				#块变量x赋值给外部局部变量z
+	p([x,y,z])
+end
+p([x,y,z])
