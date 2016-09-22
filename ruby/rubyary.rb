@@ -151,14 +151,66 @@ p(ary6)
 
 ary8=[1,3,2,9,8]
 ary8.sort!()	#数组排序，没有块时使用<=>运算符比较
-#ary8.sort!{|i,j| i>j}
+#ary8.sort!{|i,j| j<=>i}
 p(ary8)
 
 p(ary8.sort_by{|i| -i})	#数组排序。根据块中运算结果对数组元素排序
 
-#7.数组与迭代器
+#7.处理数组中的元素
+#数组与迭代器
 (1..5).each do |i|
 	print("#{i}  ")
 end
+(1..5).each_with_index do |item,index|
+	puts("第#{index+1}个元素是#{item}")
+end
+#使用具有破坏性的方法实现循环（元素处理完成后该数组不再被需要，就可以通过逐个删除数组元素的方法实现循环）
+ary9=[1,2,3]
+while item=ary9.pop
+	print("#{item}  ")
+end
+#使用其他像collect/map等这样的或创建专用的迭代器实现循环
 
-#8.处理数组中的元素
+#8.数组的元素 数组中可以存放各种对象，除了数值类字符串外，还可以存放数组对象或散列对象等
+#使用简单的矩阵 元素是数组的数组
+ary10=[[1,2,3],[4,5,6],[7,8,9]]
+p(ary10[1][1])
+
+#初始化时的注意事项
+#把数组对象或散列对象作为数组元素时
+#a=Array.new(3,[0,0,0])	这样再引用或赋值矩阵的元素是会发生同时改变的问题
+a=Array.new(3) do 
+	[0,0,0]
+end
+p(a)
+a[1][1]=1
+p(a)
+
+#9.同时访问多个数组 Array#zip方法 会将接收器和参数传来的数组元素逐个取出，并且每次都会启动块
+a1=[1,2,3,4,5]
+a2=[10,20,30,40,50]
+a3=[100,200,300,400,500]
+result=[]
+a1.zip(a2,a3) do |a,b,c|
+	result.push(a+b+c)
+end
+p(result)
+
+#练习题
+test1=[]
+for i in 0..99
+	test1.push(i+1)
+end
+p(test1)
+
+test2=test1.map{|i| i*100}
+p(test2)
+p(test1.collect!{|i| i*100})
+
+test3=test2.reject{|i| i%3==0}
+p(test3)
+p(test2.reject!{|i| i%3==0})	#或delete_if
+
+#test4=test3.sort_by{|i| -i}
+test4=test3.sort{|i,j| j<=>i}
+p(test4)
