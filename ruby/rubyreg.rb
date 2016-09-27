@@ -31,3 +31,38 @@ p(/^(ABC|DEF)/ =~ "ABCE",/^(ABC|DEF)/ =~ "DEF00")
 
 #3.使用quote方法（转义正则表达式的所有元字符）的正则表达式  返回转义了元字符的正则表达式字符串，再结合new方法生成新的正则表达式
 reg1=Regexp.new("abc*def")
+reg2=Regexp.new(Regexp.quote("abc*def"))
+p(reg1,reg2,reg1 =~ "abc*def",reg2 =~ "abc*def")
+
+#4.正则表达式的选项 可以改变正则表达式的一些默认效果	/../模式后面加i（忽略英文字母大小写）、x（忽略空白字符及#后的字符）、m（可以使用.匹配换行符）
+#正则表达式的选项常量 Regexp::IGNORECASE（不区分大小写）、Regexp::EXTENDED（忽略空白符）、Regexp::MULTILINE（匹配多行）
+p(/DEF.GHI/m =~ "ABC\nDEF\nGHI",/abc/i =~ "ABC\nDEF\nGHI",/abc #测试/ix =~ "ABC\nDEF\nGHI")
+p(Regexp.new("ruby test",Regexp::IGNORECASE|Regexp::MULTILINE) =~ "RUBY TESTruby test")
+
+#5.捕获 从正则表达式的匹配部分中提取其中的某部分 通过"$数字"就可以获取匹配了正则表达式中用()括住部分的表达式
+/(.)(.)(.)/ =~ "abc"
+p($1,$2,$3)
+/(.)(?:\d\d)+(.)/ =~ "123456"	#?:过滤不需要捕获的模式
+p($1,$2)
+#$`（匹配部分前的字符串） $&（匹配部分的字符串） $'（匹配部分后的字符串）
+/C./ =~ "ABCDEF"
+p($`,$&,$')
+
+#6.使用正则表达式的方法
+#String类的sub和gsub方法 代码rubystr.rb第59行
+#scan方法 可以匹配但不能像sub和gsub一样置换操作 其中使用()时匹配部分会以数组形式返回（如果不指定块，则直接返回匹配的字符串数组，如果指定与()相等数量的块参数，则返回各个元素）
+"abracatabra".scan(/.a/) do |matched|
+	p(matched)
+end
+"abracatabra".scan(/(.)(a)/) do |matched|
+	p(matched)
+end
+"abracatabra".scan(/(.)(a)/) do |a,b|
+	p(a+b)
+end
+p("abracatabra".scan(/.a/))
+
+#7.正则表达式的例子
+%r|http://([^/]*)/| =~ "http://www.after615.com/"
+p($1)
+p(/\d+-?\d*/ =~ "010-1234") #匹配邮政编码
