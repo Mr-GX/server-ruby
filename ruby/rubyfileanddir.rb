@@ -47,3 +47,8 @@ p(Dir.glob(["*/*.html","*/*.htm"]))	#获取当前目录子目录中所有扩展�
 p(Dir.glob("foo.[cho]"))	#获取当前目录文件名为foo.c foo.h foo.o的文件
 p(Dir.glob("**/*"))	#获取当前目录及其子目录中所有文件名，递归查找目录
 p(Dir.glob("foo/**/*.html"))	#获取foo目录及其子目录中扩展名为.html的文件名，递归查找目录
+#2.2目录的创建与删除 Dir#mkdir(path) Dir#rmdir(path)（要删除的目录必须为空目录）
+
+#3.文件与目录的属性		文件目录都有所有者、最后更新时间等属性
+#File#stat(path)（获取文件、目录得属性。返回的是File::Stat类的实例）
+p(File.stat("C:/Users/InSight/Desktop/RubyTest/ruby"))
