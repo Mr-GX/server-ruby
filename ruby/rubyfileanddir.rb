@@ -52,3 +52,42 @@ p(Dir.glob("foo/**/*.html"))	#获取foo目录及其子目录中扩展名为.html
 #3.文件与目录的属性		文件目录都有所有者、最后更新时间等属性
 #File#stat(path)（获取文件、目录得属性。返回的是File::Stat类的实例）
 p(File.stat("C:/Users/InSight/Desktop/RubyTest/ruby"))
+=begin
+#mswin32版ruby不能使用etc模块
+require "etc"
+st=File.stat("C:/Users/InSight/Desktop/RubyTest/ruby")
+p(Etc.getpwuid(st.uid).name,Etc.getgrgid(st.gid).name)	#获取对应的用户id和组id
+=end
+#File#ctime(path)（文件状态最后更改时间）File#mtime(path)（文件最后修改时间）File#atime(path)（文件最后访问时间）
+#以上三个方法等同于实例方法File::Stat#ctime、File::Stat#mtime、File::Stat#atime
+#File#utime(atime,mtime,path)（改变文件属性中的最后访问时间atime，最后修改时间mtime）
+st=File.stat("C:/Users/InSight/Desktop/test.txt")
+p(st.ctime,st.mtime,st.atime)
+File.utime(Time.now-100,Time.now-100,"C:/Users/InSight/Desktop/test.txt")
+st=File.stat("C:/Users/InSight/Desktop/test.txt")
+p(st.ctime,st.mtime,st.atime)
+#File#chmod(mode,path)（修改文件path的访问权限，mode为整数值）
+#File#chown(owner,group,path)（修改文件path的所有者，owner表示新的所有者的用户id，group表示新的所属组id）
+
+#FileTest模块 include后使用，也可以直接作为模块函数使用。其中的方法也可以作为File类的类方法使用
+#exist?(path)、file?(path)、directory?(path)、owned?(path)、grpowned?(path)、readable?(path)、writable?(path)、executable?(path)、size(path)、size?(path)、zero?(path)
+
+#4.文件名的操作
+#File#basename(path[,suffix]) 返回路径path中最后一个/以后的部分，如果指定了扩展名suffix，则去除扩展名部分
+p(File.basename("a/ruby/filebasename.c"),File.basename("a/ruby/filebasename.c",".c"))
+#File#dirname(path) 返回路径path中最后一个/之前的部分，如果路径path不包含/时返回.
+p(File.dirname("a/ruby/filebasename.c"))
+#File#extname(path[,suffix]) 返回路径path中basename方法结果中的扩展名，没扩展名或者以.开头的文件名时返回空字符串
+p(File.extname("a/ruby/filebasename.c"))
+#File#split(path) 将path分割为目录名和文件名2部分，以数组形式返回
+dir,base=File.split("a/ruby/filebasename.c")
+p(dir,base)
+#File#join(name1[,name2]) 用File#SEPARATOR连接参数指定的字符串，默认值为/
+p(File.join("a/ruby","filebasename.c"))
+#File#expand_path(path[,default_dir]) 根据目录名default_dir将相对路径path转换为绝对路径，不指定default_dir时则根据当前目录转换
+p(File.expand_path("a/ruby/filebasename.c"),File.expand_path("a/ruby/filebasename.c","/user"))
+
+#5.与操作文件相关的库
+#5.1 find库
+#5.2 tempfile库
+#5.3 fileutils库
