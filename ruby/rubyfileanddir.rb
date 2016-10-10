@@ -88,6 +88,24 @@ p(File.join("a/ruby","filebasename.c"))
 p(File.expand_path("a/ruby/filebasename.c"),File.expand_path("a/ruby/filebasename.c","/user"))
 
 #5.与操作文件相关的库
-#5.1 find库
-#5.2 tempfile库
+#5.1 find库	 被用于对指定的目录下的目录或文件做递归处理
+#Find#find(dir){|path|...}	将目录dir下的所有文件路径逐个传给路径path
+#Find#prune 跳过当前查找目录下的所有路径
+require "find"
+IGNORES=[/^\./,/^CVS$/,/^RCS$/]
+def listdir(top)
+	Find.find(top) do |path|
+		if FileTest.directory?(path)
+			dir,base=path.split(path)
+			IGNORES.each do |reg|
+				if reg =~ base
+					Find.prune
+				end
+			end
+			p(path)
+		end
+	end
+end
+#5.2 tempfile库	被用于管理临时文件
+
 #5.3 fileutils库
