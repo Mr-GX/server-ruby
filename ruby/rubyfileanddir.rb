@@ -12,9 +12,8 @@ def copy(from,to)
 		end
 	end
 end
-#也可以引用FileUtils库，使用FileUtils#cy（文件拷贝）FileUtils#mv（文件移动并且可以跨文件系统和驱动器）等操作文件的方法
 #1.3删除文件 File#delete(file) File#unlink(file)
-#File.delete("foo")
+
 #2.Dir类 操作目录 目录中包括目录和文件 路径:文件位置的目录名 根目录:目录树的起点,只用/表示
 #Dir#pwd（获取当前目录） Dir#chdir(dir)（变更当前目录）	当前目录下的文件可以通过指定文件名打开，但变更了当前目录时，则需要指定目录名
 p(Dir.pwd)
@@ -107,5 +106,56 @@ def listdir(top)
 	end
 end
 #5.2 tempfile库	被用于管理临时文件
+#处理大量数据时，程序会把一部分正在处理的数据写入临时文件，这些文件一般在执行完成后不再需要，需要删除，需要记住每个临时文件的名称（名称不能相同）
+#Tempfile#new(basename[,tempdir]) 创建临时文件，格式为basename+进程id+流水号
+#Tempfile#close(real) 关闭临时文件，real为true马上删除临时文件。默认值为false
+#Tempfile#open() 再次打开close方法关闭的临时文件
+#Tempfile#path() 返回临时文件的路径
 
 #5.3 fileutils库
+#FileUtils#cy(from,to)	文件拷贝
+#FileUtils#cy_r(from,to)	from为目录时，递归拷贝
+#FileUtils#mv(from,to)	文件移动并且可以跨文件系统和驱动器
+#FileUtils#rm(path)		
+#FileUtils#rm_f(path)	删除path，path只能是文件，可将path作为数组删除多个文件，rm_f发生异常时继续执行
+#FileUtils#rm_r(path)	
+#FileUtils#rm_rf(path)	删除path，path为目录时递归删除，可将path作为数组删除多个文件或目录，rm_rf发生异常时继续执行
+#FileUtils#compare(from,to)	比较from和to的内容，相同true不同false
+#FileUtils#install(from,to[,option])把文件从from拷贝到to，如果to存在且与from内容一致则不拷贝，option参数用于指定目标文件的访问权限
+#FileUtils#mkdir_p(path)	一次性自动创建各层的目录，可将path作为数组一次性创建多个目录
+
+#练习题
+#1
+require "rbconfig"
+
+def print_libraries
+  $:.each do |path|
+    next unless FileTest.directory?(path)
+    dlext = RbConfig::CONFIG["DLEXT"]
+    Dir.open(path) do |dir|
+      dir.each do |name|
+        if name =~ /\.rb$/i || name =~ /\.#{dlext}$/i
+          puts name
+        end
+      end
+    end
+  end
+end
+
+print_libraries
+
+#2
+require "find"
+
+def du(path)
+  result = 0
+  Find.find(path){|f|
+    if File.file?(f)
+      result += File.size(f)
+    end
+  }
+  printf("%d %s\n", result, path)
+  return result
+end
+
+du(ARGV[0] || ".")
