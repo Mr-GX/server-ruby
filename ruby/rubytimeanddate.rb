@@ -42,3 +42,99 @@ require "time"
 p(Time.parse("2016/10/11"))
 
 #7.日期的获取 使用Date类需引用date库
+# Date#today	获取当前日期的Date对象
+require "date"
+puts(Date.today)
+# d#year/month/day/wday（一周中的第几天，0周日）/mday（一月中的第几天）/yday（一年中的第几天，1是1月1日）
+d=Date.today
+p(d.year,d.month,d.day,d.wday,d.mday,d.yday)
+# Date#new(year,month,day) 指定日期获取Date对象.day为-1时表示月末那天，-2为月末前一天...
+d=Date.new(2016,10,10)
+puts(d)
+
+#8.日期的运算
+#日期间减法运算结果是Rational(有理数) 运算符>>可以获取后一个月相同日期的Date对象
+d1=Date.new(1990,11,3)
+d2=Date.new(2016,10,12)
+puts(d2-d1)
+d3=Date.today
+puts(d3+1,d3-1,d3>>2)
+
+#9.日期的格式
+# d#strftime(format)	将日期按指定的格式转换为字符串，时间部分换转换为0
+puts(d3.strftime("%Y-%m-%d %H:%M:%S %z"),d3.to_s)
+
+#10.从字符串中获取日期
+# Date#parse(str)
+puts(Date.parse("2016/10/11"))
+
+
+#练习题
+#1
+def cparsedate(str)
+  now = Time.now
+  year = now.year
+  month = now.month
+  day = now.day
+  hour = now.hour
+  min = now.min
+  sec = now.sec 
+  str.scan(/(上午|下午)?(\d+)(年|月|日|点|分|秒)/) do
+    case $3
+    when "年"
+      year = $2.to_i
+    when "月"
+      month = $2.to_i
+    when "日"
+      day = $2.to_i
+    when "点"
+      hour = $2.to_i
+      hour += 12 if $1 == "下午"
+    when "分"
+      min = $2.to_i
+    when "秒"
+      sec = $2.to_i
+    end
+  end
+  return Time.mktime(year, month, day, hour, min, sec)
+end
+p(cparsedate("2016年10月12日上午11点4分59秒"))
+
+#2.
+require "date"
+
+module Calendar
+  WEEK_TABLE = [
+    [99, 99, 99, 99, 99, 99,  1,  2,  3,  4,  5,  6,  7],
+    [ 2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14],
+    [ 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21],
+    [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28],
+    [23, 24, 25, 26, 27, 28, 29, 30, 31, 99, 99, 99, 99],
+    [30, 31, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99],
+  ]
+
+  module_function
+
+  def cal(year, month)
+    first = Date.new(year, month, 1)       # 被指定的月的1号
+    end_of_month = ((first >> 1) - 1).day  # 次月的1号的前1天
+    start = 6 - first.wday                 # 表示在表格的哪个位置
+
+    puts first.strftime("%B %Y").center(21)
+    puts " Su Mo Tu We Th Fr St"
+    WEEK_TABLE.each do |week|
+      buf = ""
+      week[start, 7].each do |day|
+        if day > end_of_month
+          buf << "   "
+        else
+          buf << sprintf("%3d", day)
+        end
+      end
+      puts buf
+    end
+  end
+end
+
+t = Date.today
+Calendar.cal(t.year, t.month)
