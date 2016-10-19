@@ -1,0 +1,11 @@
+#更新源 sudo apt-get update
+ 命令行安装 sudo apt-get install xxx
+ 对应的命令行卸载 sudo apt-get autoremove xxx
+ 更改权限 sudo chmod -R 777 /xxx
+ 解压 sudo unzip xxx
+ 打开文件 sudo gedit xxx
+
+
+1.sudo apt-get install ruby-full (其中包括RubyGems)
+2.sudo gem install rails
+2.sudo gem install sqlite3
