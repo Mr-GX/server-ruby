@@ -20,6 +20,7 @@
 	 d、git配置
 	    git config --global user.name "Your Name"
         git config --global user.email your-email@address.com
+        git config --global url."https://".insteadof git://
 	 e、配置ssh公钥(首先在本地生成ssh公钥)
 		ssh-keygen -C 'your-email@address.com' -t rsa
 1.安装RVM环境
@@ -41,4 +42,3 @@
   gem install bundler
 8.安装Rails环境
   gem install rails
-  
