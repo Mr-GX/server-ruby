@@ -41,3 +41,4 @@
   gem install bundler
 8.安装Rails环境
   gem install rails
+  
