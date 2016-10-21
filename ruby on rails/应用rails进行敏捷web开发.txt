@@ -23,6 +23,12 @@
         git config --global url."https://".insteadof git://
 	 e、配置ssh公钥(首先在本地生成ssh公钥)
 		ssh-keygen -C 'your-email@address.com' -t rsa
+  sudo apt-get install mysql-server mysql-client(安装mysql源)
+   sudo apt-get install libmysqlclient-dev(安装libmysqlclient源)
+  	gem install mysql
+  	 sudo service mysql restart(启动mysql服务)
+  	 mysql -u root -p(登录用户名为root的mysql)
+  	 quit;或exit;(退出)
 1.安装RVM环境
   gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
   curl -L https://raw.githubusercontent.com/wayneeseguin/rvm/master/binscripts/rvm-installer | bash -s stable
@@ -42,3 +48,13 @@
   gem install bundler
 8.安装Rails环境
   gem install rails
+9.rails server 启动webrick服务Could not find a JavaScript runtime报错处理
+  gem install execjs
+  gem install therubyracer
+  sudo apt-get install nodejs
+
+#创建Rails demo（先cd xxx进入创建的文件夹）
+1.rails new xx
+2.cd xxx/xx（进入xx项目根目录，ls -p查看所有文件）
+3.rails server（启动server，可打开http://localhost:3000）
+4.rails generate controller xx(控制器名) xx(方法名) xx(方法名)
