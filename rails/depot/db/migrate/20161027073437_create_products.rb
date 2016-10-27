@@ -1,3 +1,5 @@
+#数据表 rails generate scaffold Product \title:string desc:text image_url:string price:decimal
+#将表应用到数据库上 rails db:migrate
 class CreateProducts < ActiveRecord::Migration[5.0]
   def change
     create_table :products do |t|
