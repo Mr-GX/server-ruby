@@ -10,3 +10,9 @@
 5.将本机id_rsa.pub中的ssh复制替换进去  按esc输入wq保存，输入exit退出
 
 *git clone git@115.29.174.239:insight4hr_talenkr_server.git
+
+#使用rails shell命令查看数据库
+1.RAILS EVN=xxx rails c
+
+2.cat config/database.yml
+  mysql -uroot -p
