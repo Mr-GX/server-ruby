@@ -1,14 +1,30 @@
 <!DOCTYPE html>
+<!-- 所有页面的布局样式 -->
 <html>
   <head>
     <title>Depot</title>
     <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag "scaffold" %>
+    <!-- application改为depot更换样式 -->
+    <%= stylesheet_link_tag    'depot', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body id="store">
+    <div id="banner">
+      <%= image_tag("http://www.easyicon.net/1201477-shop_icon.html")%>
+      <%= @page_title || "liby"%>
+    </div>
+    <div id="columns">
+      <div id="side">
+        <a href="http://www.baidu.com">首页</a><br/>
+        <a href="http://www.baidu.com">问题</a><br/>
+        <a href="http://www.baidu.com">新闻</a><br/>
+        <a href="http://www.baidu.com">联系</a><br/>
+      </div>
+      <div id="main">
+        <%= yield %>
+      </div>
+    </div>
   </body>
 </html>

@@ -1,2 +1,15 @@
-<h1>Store#index</h1>
-<p>Find me in app/views/store/index.html.erb</p>
+<h1>商店</h1>
+<% @products.each do |product| %>
+  <div class="entry">
+    <!-- 帮助函数，使用其参数作为图像源，生成html标签<img> -->
+    <%= image_tag(product.image_url) %>
+    <!-- 帮助函数，允许安全的添加html风格代码 -->
+    <%= sanitize(product.desc) %>
+  </div>
+
+  <div class="price_line">
+    <span class="price" %>
+      <%= product.price %>
+    </span>
+  </div>
+<% end %>

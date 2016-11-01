@@ -1,4 +1,6 @@
 class Product < ApplicationRecord
+	#商品按title排序
+	#default_scope{where(:order=>'title')}
 	#根据一个或多个条件验证一个或多个模型字段，:presence=>true核实每个已命名的字段都存在，并且其内容不为空
 	validates :title,:image_url,:desc,:presence => true
 	validates :title ,:uniqueness => true
