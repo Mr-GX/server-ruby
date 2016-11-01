@@ -12,7 +12,9 @@
 *git clone git@115.29.174.239:insight4hr_talenkr_server.git
 
 #使用rails shell命令查看数据库
-1.RAILS EVN=xxx rails c
-
+登录服务器ssh wujj@115.29.46.56 -p 1039
+1.RAILS_ENV=xxx rails c
 2.cat config/database.yml
   mysql -uroot -p
+3.开启delayed_jobs
+RAILS_ENV=xxx bundle exec rake jobs:work
