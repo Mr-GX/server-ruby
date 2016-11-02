@@ -9,7 +9,8 @@
 
   <div class="price_line">
     <span class="price" %>
-      <%= product.price %>
+      <!-- 帮助函数，把价格转换成当前货币格式 -->
+      <%= number_to_currency(product.price,unit:"￥") %>
     </span>
   </div>
 <% end %>
