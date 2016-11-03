@@ -18,17 +18,17 @@
      c、安装git服务器：
 		sudo apt-get install git-core
 	 d、git配置
-	    git config --global user.name "Your Name"
+	      git config --global user.name "Your Name"
         git config --global user.email your-email@address.com
         git config --global url."https://".insteadof git://
 	 e、配置ssh公钥(首先在本地生成ssh公钥)
-		ssh-keygen -C 'your-email@address.com' -t rsa
+		    ssh-keygen -C 'your-email@address.com' -t rsa
   sudo apt-get install mysql-server mysql-client(安装mysql源)
    sudo apt-get install libmysqlclient-dev(安装libmysqlclient源)
   	gem install mysql
   	 sudo service mysql restart(启动mysql服务)
   	 mysql -u root -p(登录用户名为root的mysql)
-  	 quit;或exit;(退出)
+  	 squit;或exit;(退出)
 1.安装RVM环境
   gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
   curl -L https://raw.githubusercontent.com/wayneeseguin/rvm/master/binscripts/rvm-installer | bash -s stable

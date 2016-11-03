@@ -16,5 +16,10 @@
 1.RAILS_ENV=xxx rails c
 2.cat config/database.yml
   mysql -uroot -p
-3.开启delayed_jobs
+#开启delayed_jobs
 RAILS_ENV=xxx bundle exec rake jobs:work
+#开启终端多窗口ctrl+shift+T
+#终端命令输入历史ctrl+R
+#关闭服务器passenger stop -p 3000
+#开启服务器passenger start -a 127.0.0.1 -p -e house -d
+
