@@ -12,5 +12,6 @@
       <!-- 帮助函数，把价格转换成当前货币格式 -->
       <%= number_to_currency(product.price,unit:"￥") %>
     </span>
+    <%= button_to '添加至购物车',line_items_path(:product_id=>product) %>
   </div>
 <% end %>
