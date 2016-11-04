@@ -7,7 +7,7 @@
   cd /home/git/.ssh
 4.编辑文件
   vim authorized_keys  
-5.将本机id_rsa.pub中的ssh复制替换进去  按esc输入wq保存，输入exit退出
+5.将本机id_rsa.pub中的ssh复制替换进去  按esc，shift+:,输入wq保存，输入exit退出
 
 *git clone git@115.29.174.239:insight4hr_talenkr_server.git
 
