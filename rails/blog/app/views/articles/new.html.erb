@@ -1,0 +1,17 @@
+<h1>New Article</h1>
+<!-- 在Rails中，每个模型可以使用各自的属性初始化，自动映射到数据库字段上 -->
+<%= form_for :article, url: articles_path do |f| %>
+  <p>
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </p>
+ 
+  <p>
+    <%= f.label :text %><br>
+    <%= f.text_area :text %>
+  </p>
+ 
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
