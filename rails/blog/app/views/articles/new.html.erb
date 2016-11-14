@@ -1,6 +1,19 @@
 <h1>New Article</h1>
 <!-- 在Rails中，每个模型可以使用各自的属性初始化，自动映射到数据库字段上 -->
 <%= form_for :article, url: articles_path do |f| %>
+  <!-- 页面开启验证后错误提示 -->
+  <% if @article.errors.any? %>
+  <!-- Rails 会自动把出错的表单字段包含在一个 div 中，并为其添加了一个 class：field_with_errors。我们可以定义一些样式，凸显出错的字段 -->
+  <div id="error_explanation">
+    <h2><%= pluralize(@article.errors.count, "error") %> prohibited this article from being saved</h2>
+    <ul>
+    <% @article.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+
   <p>
     <%= f.label :title %><br>
     <%= f.text_field :title %>

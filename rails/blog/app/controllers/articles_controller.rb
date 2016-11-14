@@ -5,7 +5,8 @@ class ArticlesController < ApplicationController
 		@articles=Article.all	
 	end
 
-	def new 
+	def new
+		@article=Article.new
 	end
 
 	def create
@@ -18,10 +19,15 @@ class ArticlesController < ApplicationController
 		#@article=Article.new(params[:article])
 		
 		@article=Article.new(article_params)
-		#把模型保存到数据库中
-		@article.save
-		#保存完后转向 show 动作
-		redirect_to @article
+		#把模型保存到数据库中,关联model的验证声明
+		if @article.save
+			#保存完后转向 show 动作。redirect_to 会让浏览器发起一次新请求。
+			redirect_to @article
+		else
+			#render 方法才能在保存失败后把 @article 对象传给 new 动作的视图。渲染操作和表单提交在同一次请求中完成
+			render 'new'
+		end
+		
 	end
 
 	def show
