@@ -1,0 +1,32 @@
+<!-- 使用局部视图去掉多个视图中的重复代码。按照约定，局部视图的文件名以下划线开头。 -->
+<!-- 在Rails中，每个模型可以使用各自的属性初始化，自动映射到数据库字段上 -->
+<!-- @article是一个资源，对应于符合REST架构的路由，Rails能自动分辨使用哪个地址和请求方法 -->
+<!-- form_for 的第一个参数可以是对象，例如@article，把对象中的字段填入表单。如果传入一个和实例变量（@article）同名的 Symbol（:article），效果也是一样。-->
+<%= form_for @article do |f| %>
+  <!-- 页面开启验证后错误提示 -->
+  <% if @article.errors.any? %>
+  <!-- Rails 会自动把出错的表单字段包含在一个 div 中，并为其添加了一个 class：field_with_errors。我们可以定义一些样式，凸显出错的字段 -->
+  <div id="error_explanation">
+    <h2><%= pluralize(@article.errors.count, "error") %> prohibited this article from being saved</h2>
+    <ul>
+    <% @article.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <p>
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </p>
+ 
+  <p>
+    <%= f.label :text %><br>
+    <%= f.text_area :text %>
+  </p>
+ 
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>

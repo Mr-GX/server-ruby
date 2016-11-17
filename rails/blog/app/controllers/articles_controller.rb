@@ -47,6 +47,12 @@ class ArticlesController < ApplicationController
 		end
 	end
 
+	def destroy
+		@article=Article.find(params[:id])
+		@article.destroy
+
+		redirect_to articles_path
+	end
 	#article_params 是私有方法。这种用法可以防止攻击者把修改后的属性传递给模型。
 	private
 	def article_params
