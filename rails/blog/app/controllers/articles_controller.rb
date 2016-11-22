@@ -1,6 +1,5 @@
+#rails generate controller Articles
 class ArticlesController < ApplicationController
-	#rails generate controller articles
-
 	def index
 		@articles=Article.all	
 	end
