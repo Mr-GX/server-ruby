@@ -1,5 +1,7 @@
 #rails generate controller Articles
 class ArticlesController < ApplicationController
+	# 控制器的顶部调用 http_basic_authenticate_with 方法。除了 index 和 show 动作，访问其他动作都要通过认证
+	http_basic_authenticate_with name: "guoxin", password: "12345678", except: [:index, :show]
 	def index
 		@articles=Article.all	
 	end
