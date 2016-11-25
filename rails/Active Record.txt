@@ -10,3 +10,29 @@
 (5)以面向对象的方式处理数据库操作
 
 2.Active Record中"多约定少配置"原则
+2.1命名约定：查找Model与数据表的映射关系，Rails把Model类名转换为复数（Article->articles），然后查找对应的数据表
+2.2模式约定：对数据表中的字段命名约定
+	外键：使用singularized_table_name_id命名，创建模型关联后（Comment），Active Record会查找这个字段（article_id）
+	主键：数据迁移时会字段创建使用整数字段id作为表的主键
+	created_at：创建记录时，自动设为当前时间戳
+	updated_at：更新记录时，自动设为当前时间戳
+	lock_version：在模型中添加乐观锁定功能
+	type：让模型使用单表继承
+	(association_name)_type：多态关联的类型
+	(table_name)_count：缓存关联对象的数量
+
+3.CRUD:读写数据
+3.1创建：new/create方法会实例化一个对象，create方法直接将该对象对应的记录存入数据库，new方法需要额外调用save方法
+3.2读取：article=Article.all/first/find_by(id:1)/where(title:'xxx').order('created_at DESC')....
+3.3更新：article=Article.find_by(title:'xxx') article.title='xx' article.save
+		 article=Article.find_by(title:'xxx') article.update(title:'xx')
+		 Article.update_all "title=xx" #批量更新
+3.4删除	 article=Article.find_by(title:'xxx') article.destroy
+
+4.数据验证：validates :title,presence:true  ...
+			数据存入数据库前验证模型，可以检查属性值是否为空/唯一/数据库中存在
+			调用create、save、update时验证失败会返回false
+
+5.回调
+
+6.迁移
