@@ -53,6 +53,23 @@
   gem install therubyracer
   sudo apt-get install nodejs
 
+
+#安装MVM环境
+ 1.git clone https://github.com/creationix/nvm.git ~/.nvm && cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`  
+ 2.cd后  vim .bashrc
+ 3.键入i，写入source ~/.nvm/nvm.sh ，键入esc->:wq保存退出
+ 4.将新增的nvm添加到系统中 source .bashrc
+ 5.查看可用的node版本 nvm ls-remote
+ 6.nvm install v6.4.0（自动安装npm，node package manage）
+ 7.nvm alias default 6.4.0
+ 8.npm install -g redis（安装Redis的Node.js客户端，这样Node.js程序就可以连接到Redis服务器并进行操作）
+ 	*需要先安装redis服务器 sudo apt-get install redis-server
+ 9.找不到node和npm报错处理
+ 	export NVM_DIR="/Users/YOURUSERNAME/.nvm"  
+	[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+	写入.bashrc并添加到系统中source .bashrc
+ 
+
 #创建Rails demo（先cd xxx进入创建的文件夹）
 1.rails new xx
 2.cd xxx/xx（进入xx项目根目录，ls -p查看所有文件）
