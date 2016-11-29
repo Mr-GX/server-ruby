@@ -1,0 +1,39 @@
+*添加本地ssh到git服务器
+1.登录git服务器
+  ssh wujj@115.29.174.239 -p 1039
+2.切换到root用户
+  sudo su
+3.进入git用户目录
+  cd /home/git/.ssh
+4.编辑文件
+  vim authorized_keys
+  将本机id_rsa.pub中的ssh复制替换进去
+  按esc，shift+:,输入wq保存，输入exit退出
+5.scp -P 1039 本地rsa.pub路径 wujj@115.29.174.239:/tmp   #在本地操作，复制到git服务器tmp临时文件夹中
+6.mv /tmp/rsa.pub /home/git/repositories/gitosis-admin.git/gitosis-export/keydir  #git服务器上操作
+6./home/git/repositories/gitosis-admin.git/gitosis.conf    #添加权限
+
+*git clone ssh://git@115.29.174.239:1039/insight4hr_talenkr_server.git
+
+#开启终端多窗口ctrl+shift+T
+#终端命令输入历史ctrl+R
+
+#使用rails shell命令查看数据库
+登录服务器ssh wujj@115.29.46.56 -p 1039   进入/disk1/xx/xx...目录
+1.RAILS_ENV=house rails c
+2.cat config/database.yml
+  mysql -uroot -p
+#开启/关闭delayed_jobs
+RAILS_ENV=house bundle exec rake jobs:work
+RAILS_ENV=house bundle exec rake jobs:workoff
+#关闭服务器passenger stop -p 3000
+#开启服务器passenger start -a 127.0.0.1 -p -e house -d
+
+#部署线上服务器(ssh wujj@115.29.46.56 -p 1039和ssh wujj@123.56.205.194)
+git pull --no-ff origin production #拉取
+rake db:migrate RAILS_ENV=production #数据迁移
+RAILS_ENV=production rake db:seeds:xxx #更新指定文件中数据
+RAILS_ENV=production rake asserts:precompile #资源预编译
+sudo /opt/nginx/sbin/nginx -s reload	#重新载入
+RAILS_ENV=production bundle exec  ruby bin/delayed_job start #开启delayed_jobs
+
