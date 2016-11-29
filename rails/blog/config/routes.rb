@@ -5,6 +5,13 @@ Rails.application.routes.draw do
   resources :articles do
   	resources :comments #嵌套资源，表明了文章和评论间的层级关系
   end
+  
+  namespace :api do
+  	namespace :v1 do
+  		resources :users,only:[:index,:show,:create,:update,:destroy]
+  	end
+  end
+  
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   #设置程序首页
   root 'welcome#index'	
