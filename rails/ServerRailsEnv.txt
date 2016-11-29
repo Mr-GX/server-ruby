@@ -69,9 +69,14 @@
 	[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 	写入.bashrc并添加到系统中source .bashrc
  
+#运行本地服务器
+ 1./bin/bash --login
+ 2.rvm use ruby-2.0.0-p648 --default
+ 3.nvm use v6.4.0
+ 4.rvmsudo rails s -b 本地ip -p 80
 
 #创建Rails demo（先cd xxx进入创建的文件夹）
-1.rails new xx
-2.cd xxx/xx（进入xx项目根目录，ls -p查看所有文件）
-3.rails server（启动server，可打开http://localhost:3000）
-4.rails generate controller xx(控制器名) xx(方法名) xx(方法名)
+ 1.rails new xx
+ 2.cd xxx/xx（进入xx项目根目录，ls -p查看所有文件）
+ 3.rails server（启动server，可打开http://localhost:3000）
+ 4.rails generate controller xx(控制器名) xx(方法名) xx(方法名)
