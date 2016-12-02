@@ -35,12 +35,13 @@
 
 5.回调
 
+###################################################################################################
 6.数据库迁移：按照时间顺序修改数据库的模式，rake之后数据表才会创建。回滚迁移，数据表会被删除
  6.1创建迁移
   6.1.1单独创建迁移 迁移名称是AddXxxToYyy或者RemoveXxxFromYyy格式，而且后面跟着字段和类型列表，迁移中会在yyys表中生成合适的add_column或remove_column语句
-   rails generate migration CreateArticles 创建一个空的迁移(title:string创建一个有title字段的数据表Articles)
+   rails generate migration CreateArticles 创建一个空的迁移(title:string创建一个有title字段的数据表articles)
    rails generate migration AddPartNumberToArticles part_number:string:index 在Articles表中创建一个新的字段part_number
-   rails generate migration RemovePartNumberFromArticles part_number:string 移除Articles表中part_number字段
+   rails generate migration RemovePartNumberFromArticles part_number:string 移除articles表中part_number字段
   6.1.2模型生成器 rails generate model Article title:string text:text
   6.1.3支持的类型修饰符（在字段类型后面，可以在{}中添加的选项）
    1).limit：设置string/text/binary/integer类型字段的最大值
@@ -51,5 +52,57 @@
    *price:decimal{5,2}生成的迁移是:decimal, precision: 5, scale: 2
  6.2编写迁移
   6.2.1创建数据表
-   默认情况下，create_table方法会创建名为id的主键，通过:primary_key可以修改主键名，不想生成主键可以传入id:false，数字数据库的选项，可以在:options选择中使用SQL。options:"ENGINE=BLACKHOLE"会在创建数据表的SQL语句后面加上ENGINE=BLACKHOLE。（MySQL默认的选项是 ENGINE=InnoDB）
+   create_table方法会默认创建名为id的主键，通过:primary_key可以修改主键名，不想生成主键可以传入id:false，数字数据库的选项，可以在:options选择中使用SQL。options:"ENGINE=BLACKHOLE"会在创建数据表的SQL语句后面加上ENGINE=BLACKHOLE。（MySQL默认的选项是 ENGINE=InnoDB）
+   create_table :articles do |t|
+  		t.string :title,null:false #创建title字段,类型修饰符null不允许字段值为null
+   end
   6.2.2创建联合数据表
+  create_join_table :artices,:comments 会创建一个artices_comments的数据表，包含2个字段artice_id和comment_id,:null选项默认是false
+  create_join_table :artices,:comments,table_name: :xxxxxx,column_options:{null:true} 指定数据库名称为xxxxxx，字段值可以为null
+  create_join_table :artices, :comments do |t|
+  		t.index :artice_id
+  		t.index :comment_id
+  end
+  6.2.3修改数据表
+  change_table修改现有的数据表
+  change_table :articles do |t|
+  		t.remove :title		#移除title字段
+  		t.string :part_number	#创建part_number字段
+  		t.index :part_number	#并建立索引
+  		t.rename :text, :content #重命名text字段
+  end
+  6.2.4使用execute方法执行任意的sql语句
+  Article.connection.execute('UPDATE `articles` SET `price`=`free` WHERE 1')
+  6.2.5使用change方法
+  change方法是最常用的方法，可以完成大多数指定的操作，在change方法中只能使用下面的方法，
+  	add_column
+	add_index
+	add_reference
+	add_timestamps
+	create_table
+	create_join_table
+	drop_table（必须提供代码块）
+	drop_join_table（必须提供代码块）
+	remove_timestamps
+	rename_column
+	rename_index
+	remove_reference
+	rename_table
+  6.2.6使用reversible方法指定运行迁移和撤销迁移时操作
+  6.2.7使用up和down方法
+  6.2.7撤销之前的迁移
+  6.3运行迁移
+   6.3.1回滚
+   6.3.2搭建数据库
+   6.3.3重建数据库
+   6.3.4运行指定的迁移
+   6.3.5在不同环境中运行迁移
+   6.3.6修改运行迁移时的输出
+  6.4修改现有的迁移
+  6.5导出模式
+   6.5.1模式文件的使用
+   6.5.2导出的模式文件类型
+   6.5.3模式导出和版本控制
+  6.6Active Record和引用完整性
+  6.7迁移和种子数据
+###################################################################################################
