@@ -37,3 +37,6 @@ RAILS_ENV=production rake asserts:precompile #资源预编译
 sudo /opt/nginx/sbin/nginx -s reload	#重新载入
 RAILS_ENV=production bundle exec  ruby bin/delayed_job start #开启delayed_jobs
 
+#查看服务器运行log
+主目录log下 tail xxx.* -f
+
