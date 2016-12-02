@@ -29,9 +29,8 @@
 		  Article.update_all "title=xx" #批量更新
  3.4删除：article=Article.find_by(title:'xxx') article.destroy
 
-4.数据验证：validates :title,presence:true  ...
-			数据存入数据库前验证模型，可以检查属性值是否为空/唯一/数据库中存在
-			调用create、save、update时验证失败会返回false
+4.数据验证：数据存入数据库前验证对象的状态
+	validates :title,presence:true  ...可以检查属性值是否为空/唯一/数据库中存在，调用create、save、update时验证失败会返回false
 
 5.回调
 
@@ -75,34 +74,40 @@
   Article.connection.execute('UPDATE `articles` SET `price`=`free` WHERE 1')
   6.2.5使用change方法
   change方法是最常用的方法，可以完成大多数指定的操作，在change方法中只能使用下面的方法，
-  	add_column
-	add_index
-	add_reference
-	add_timestamps
-	create_table
-	create_join_table
-	drop_table（必须提供代码块）
-	drop_join_table（必须提供代码块）
-	remove_timestamps
-	rename_column
-	rename_index
-	remove_reference
-	rename_table
-  6.2.6使用reversible方法指定运行迁移和撤销迁移时操作
+  	add_column、add_index、add_reference、add_timestamps、create_table、create_join_table、drop_table（必须提供代码块）、drop_join_table（必须提供代码块）、remove_timestamps、rename_column、rename_index、remove_reference、rename_table
+  6.2.6使用reversible方法指定运行和撤销复杂的迁移操作
+  	确保操作是按顺序执行的
   6.2.7使用up和down方法
-  6.2.7撤销之前的迁移
-  6.3运行迁移
+  	up方法定义要对数据库模式做哪些操作
+  	down方法用于撤销这些操作
+  	*撤销时最好按照添加的相反顺序进行
+  6.2.8撤销之前的迁移
+  	revert方法还可以接收一个块，定义撤销操作，可以撤销以前迁移的部分操作
+  6.3运行迁移：rake db:migrate (VERSION=xxxx)，执行(xxxx时间戳之前)迁移中的change或up方法
    6.3.1回滚
+   	rake db:rollback (STEP=3)/rake db:migrate:redo (STEP=3) 回滚前1次(前3次)的迁移，撤销change中操作或执行down方法。
    6.3.2搭建数据库
+   	rake db:setup 创建数据库，加载模式，并填充种子数据
    6.3.3重建数据库
+   	rake db:reset/rake db:drop db:setup 删除数据库然后重建
    6.3.4运行指定的迁移
+   	rake db:migrate:up(down) VERSION=xxxx
    6.3.5在不同环境中运行迁移
+   	rake db:migrate RAILS_ENV=xxx
    6.3.6修改运行迁移时的输出
+   	rake db:migrate VERBOSE=boolean 是否输出迁移时的日志
+   	suppress_messages 接受一个代码块，禁止代码块中所有操作的输出
+   	say 接受一个消息字符串作为参数，将其输出。第二个参数是布尔值，指定输出结果是否缩进
+   	say_with_time 输出文本，以及执行代码块中操作所用时间。如果代码块的返回结果是整数，会当做操作的记录数量
   6.4修改现有的迁移
+  	必须先回滚迁移rake db:rollback，编辑迁移文件后rake db:migrate执行改正后的版本。
   6.5导出模式
-   6.5.1模式文件的使用
+   6.5.1模式文件的使用：即db/schema.rb文件，可用来快速查看 Active Record 中有哪些属性
    6.5.2导出的模式文件类型
+   	config/application.rb 文件中的 config.active_record.schema_format 选项设置，可以是 :sql 或 :ruby
    6.5.3模式导出和版本控制
-  6.6Active Record和引用完整性
-  6.7迁移和种子数据
+   	rake db:structure:dump导出sql格式的数据库结构，无数据
+   	*导出的模式文件是数据库模式的可信源，强烈推荐将其纳入版本控制。
+  6.6迁移和种子数据
+  	Rails提供了“种子”功能，可以把初始化数据存入数据库。在db/seeds.rb文件中写一些Ruby代码，然后执行rake db:seed命令即可
 ###################################################################################################
