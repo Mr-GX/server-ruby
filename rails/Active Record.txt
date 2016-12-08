@@ -30,7 +30,10 @@
  3.4删除：article=Article.find_by(title:'xxx') article.destroy
 
 4.数据验证：数据存入数据库前验证对象的状态
-	validates :title,presence:true  ...可以检查属性值是否为空/唯一/数据库中存在，调用create、save、update时验证失败会返回false
+	validates :title,presence:true  ...可以检查属性值是否为空/唯一/数据库中是否存在，调用create、save、update时验证失败会返回false
+	*在模型中做验证是最有保障的，只有通过验证的数据才存入数据库
+	1).valid?方法会触发数据验证，如果对象上没有错误，就返回true，否则返回false。invalid?相反
+	2).Active Record验证结束后，所有发现的错误都可以通过实例方法errors.messages获取，该方法返回一个错误集合。
 
 5.回调
 
