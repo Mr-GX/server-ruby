@@ -111,7 +111,27 @@
     </div>
   <% end %>
 **************************************************************************************************
-5.回调
+5.回调：是在对象生命周期的特定时刻执行的方法，其状态(创建/保存/更新/销毁/验证等)改变之前或之后触发指定的逻辑操作。
+   5.1
+    validates :login, :email, presence: true
+    before_validation :ensure_login_has_a_value，on: :create #或on: [ :create, :update ]，指定只在对象生命周期的特定事件发生时执行
+    before_create do  #接受一个代码块。如果操作可以使用一行代码表述，可以考虑使用代码块形式。
+     self.name = login.capitalize if name.blank?
+    end
+    protected
+     def ensure_login_has_a_value
+      if login.nil?
+        self.login = email unless email.blank?
+      end
+     end
+	*使用回调之前，要先注册。回调方法的定义和普通的方法一样，然后使用类方法注册。一般都把回调方法定义为受保护的方法或私有方法。如果定义成公共方法，回调就可以在模型外部调用，违背了对象封装原则。
+   5.2可用的回调
+    before_validation、after_validation
+    before_save、around_save、after_save
+    before_create、around_create、after_create
+    before_update、around_update、after_update
+    before_destroy、around_destroy、after_destroy
+    *创建和更新对象时都会触发after_save，但不管注册的顺序，总在after_create和after_update之后执行。
 
 ###################################################################################################
 6.数据库迁移：按照时间顺序修改数据库的模式，rake之后数据表才会创建。回滚迁移，数据表会被删除
