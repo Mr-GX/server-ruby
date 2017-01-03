@@ -53,7 +53,7 @@
   4.3.1 :allow_nil 验证的值为 nil 就会跳过验证
   4.3.2 :aloww_blank 验证的值为空（调用 blank? 方法，例如 nil 或空字符串），就会跳过验证。
   4.3.3 :message 验证失败，会把:message选项指定的字符串添加到errors集合中。如果没指定这个选项，Active Record 会使用各种验证帮助方法的默认错误消息
-  4.3.4 :on 指定什么时候做验证。内建的验证帮助方法默认都在保存时（新建记录或更新记录）做验证。可以使用 on: :create，指定只在创建记录时做验证；或者使用on: :update，指定只在更新记录时做验证。
+  4.3.4 :on指定什么时候做验证。内建的验证帮助方法默认都在保存时（新建记录或更新记录）做验证。可以使用on: :create，指定只在创建记录时做验证；或者使用on: :update，指定只在更新记录时做验证。
  4.4严格验证
  	validates :name, presence: { strict: true }.失败后会抛出 ActiveModel::StrictValidationFailed 异常
  	validates :token, presence: true, uniqueness: true, strict: TokenGenerationException #指定抛出异常
@@ -111,7 +111,56 @@
     </div>
   <% end %>
 **************************************************************************************************
-5.回调
+5.回调：是在对象生命周期的特定时刻执行的方法，其状态(创建/保存/更新/销毁/验证等)改变之前或之后触发指定的逻辑操作。
+   5.1
+    validates :login, :email, presence: true
+    before_validation :ensure_login_has_a_value，on: :create #或on: [ :create, :update ]指定只在对象生命周期的特定事件发生时执行,如果不设置:on选项，每个操作都会触发回调。
+    before_create do  #接受一个代码块。如果操作可以使用一行代码表述，可以考虑使用代码块形式。
+     self.name = login.capitalize if name.blank?
+    end
+    protected
+     def ensure_login_has_a_value
+      if login.nil?
+        self.login = email unless email.blank?
+      end
+     end
+	*使用回调之前，要先注册。回调方法的定义和普通的方法一样，然后使用类方法注册。一般都把回调方法定义为受保护的方法或私有方法。如果定义成公共方法，回调就可以在模型外部调用，违背了对象封装原则。
+   5.2可用的回调
+    before_validation、after_validation
+    before_save、around_save、after_save
+    before_create、around_create、after_create
+    before_update、around_update、after_update
+    before_destroy、around_destroy、after_destroy
+    *创建和更新对象时都会触发after_save，但不管注册的顺序，总在after_create和after_update之后执行。
+    after_initialize 回调在对象初始化时执行，包括直接使用new方法初始化和从数据库中读取记录。不用直接重定义Active Record的initialize方法。
+    after_find 回调在从数据库中读取记录时执行(all,first,find.find_by,find_by_*,find_by_*!,find_by_sql,last)
+    after_touch 回调在触碰Active Record对象的touch方法时执行。可以搭配使用belongs_to :model, touch: true
+   5.3执行回调
+   	触发执行回调的方法：create、create!、decrement!、destroy、destroy!、destroy_all、increment!、save、save!、save(validate: false)、toggle!、update_attribute、update、update!、valid?
+   5.4跳过回调
+    跳过回调的方法：decrement、decrement_counter、delete、delete_all、increment、increment_counter、toggle、touch、update_column、update_columns、update_all、update_counters
+   5.5终止执行
+    在模型中注册回调后，回调会加入一个执行队列。这个队列中包含模型的数据验证，注册的回调，以及要执行的数据库操作。整个回调链包含在一个事务中。如果任何一个before_*回调方法返回false或抛出异常，整个回调链都会终止执行，撤销事务。而after_*回调只有抛出异常才能达到相同的效果。
+   5.6条件回调(类似条件验证line60)
+    在满足指定条件时再调用回调方法。条件通过:if和:unless选项指定，选项的值可以是Symbol、字符串、Proc或数组。:if选项指定什么时候调用回调。如果要指定何时不调用回调，使用:unless选项。
+    1).使用Symbol：before_save :normalize_card_number, if: :paid_with_card?
+    2).使用字符串（Ruby代码）：before_save :normalize_card_number, if: "paid_with_card?"
+    3).使用Proc：before_save :normalize_card_number,if: Proc.new { |order| order.paid_with_card? }
+    4).回调的多重条件：after_create :send_email_to_author,if: :author_wants_emails?,unless: Proc.new{|comment| comment.post.ignore_comments? }
+   5.7回调类：回调方法可以在其他模型中重用，我们可以将其封装在类中。
+   	class PictureFile < ActiveRecord::Base
+  		after_destroy PictureFileCallbacks
+	end
+	class PictureFileCallbacks
+  		def self.after_destroy(picture_file)
+    		if File.exist?(picture_file.filepath)
+      			File.delete(picture_file.filepath)
+    		end
+  		end
+	end
+   5.8事务回调：模型要和数据库事务之外的系统交互。
+    数据库事务完成时触发：after_commit、after_rollback
+    after_commit和after_rollback回调确保模型的创建、更新和销毁等操作在事务中完成。如果这两个回调抛出了异常，会被忽略，因此不会干扰其他回调。因此，如果回调可能抛出异常，就要做适当的补救和处理。
 
 ###################################################################################################
 6.数据库迁移：按照时间顺序修改数据库的模式，rake之后数据表才会创建。回滚迁移，数据表会被删除
@@ -190,3 +239,40 @@
   6.6迁移和种子数据
   	Rails提供了“种子”功能，可以把初始化数据存入数据库。在db/seeds.rb文件中写一些Ruby代码，然后执行rake db:seed命令即可
 ###################################################################################################
+
+7.Active Record关联
+ 7.1
+  在Rails中，关联是两个ActiveRecord模型之间的关系。关联使用宏的方式实现，用声明的形式为模型添加功能。例如声明一个模型属于（belongs_to）另一个模型后，Rails会维护两个模型之间的“主键-外键”关系，而且还向模型中添加了很多实用的方法。Rails支持六种关联：
+  7.1.1belongs_to  关联创建两个模型之间一对一的关系，声明所在的模型实例属于另一个模型的实例。另一个模型必须使用单数形式。
+  7.1.2has_one 关联也会建立两个模型之间一对一的关系，表示所在的模型实例包含或拥有另一个模型的实例。
+  7.1.3has_many 关联建立两个模型之间的一对多关系。在belongs_to关联的另一端经常会使用这个关联。has_many关联表示模型的实例有零个或多个另一个模型的实例。另一个模型使用复数形式。
+  7.1.4has_many :through 关联建立两个模型之间的多对多关系。这种关联表示一个模型的实例可以借由第三个模型，拥有零个和多个另一个模型的实例。
+  7.1.5has_one :through 关联建立两个模型之间的一对一关系。这种关联表示一个模型通过第三个模型拥有另一个模型的实例。
+  7.1.6has_and_belongs_to_many 关联建立两个模型之间的多对多关系，不借由第三个模型。
+  7.1.7使用has_many :through还是has_and_belongs_to_many
+   *根据经验，如果关联的第三个模型要作为独立实体使用，要用has_many :through关联；如果不需要使用第三个模型，用简单的has_and_belongs_to_many关联即可（不过要记得在数据库中创建连接数据表）。
+   *如果需要做数据验证、回调，或者连接模型上要用到其他属性，此时就要使用has_many :through关联。
+  7.1.8has_many :as 多态关联：在同一个关联中，模型可以属于其他多个模型。在模型中belongs_to指定使用多态，可以理解成创建了一个接口，可供任何一个模型使用。
+  	比如图片模型可以属于雇员模型或者产品模型
+  	Picture中： belongs_to :imageable, polymorphic: true #可以使用@picture.imageable获取父对象。
+  	Employee中：has_many :pictures, as: :imageable
+  	Product中： has_many :pictures, as: :imageable
+  7.1.9自连接
+   模型要和自己建立关联，可以使用自连接关联解决。
+   class Employee < ActiveRecord::Base
+  	has_many :subordinates, class_name: "Employee",foreign_key: "manager_id"
+  	belongs_to :manager, class_name: "Employee"
+   end
+  7.2小技巧与注意事项
+   7.2.1缓存控制
+    关联添加的方法都会使用缓存，记录最近一次查询结果，以备后用。缓存还会在方法之间共享。customer.orders.empty?
+    程序的其他部分会修改数据，重载缓存调用关联方法时传入true参数即可。customer.orders(true).empty? 
+   7.2.2避免命名冲突：关联的名字不能和Model的实例方法同名。
+   7.2.3更新模式：关联对应的数据库模式需要你自己编写。不同的关联类型，要做的事也不同。
+   7.2.4控制关联的作用域：默认情况下，关联只会查找当前模块作用域中的对象。要想让处在不同命名空间中的模型正常建立关联，声明关联时要指定完整的类名：class_name: "xxx::xxx::xxx"
+   7.2.5双向关联：一般情况下，都要求能在关联的两端进行操作。
+  7.3关联详解
+   
+###################################################################################################
+
+8.Active Record查询
