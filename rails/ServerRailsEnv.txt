@@ -36,7 +36,7 @@
   source ~/.rvm/scripts/rvm
   *将[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*写到.bashrc文件中启动终端时自动载入
 3.修改RVM下载Ruby的源，到Ruby China的镜像
-  echo "ruby_url=https://cache.ruby-china.org/pub/ruby" > ~/.rvm/user/db
+  echo "ruby_url=https://cache.ruby-china.org/pub/ruby" > ~/.rvm/config/db
 4.用RVM安装Ruby环境
   rvm requirements
   rvm install 2.3.0
