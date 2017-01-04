@@ -5,7 +5,8 @@
  命令行安装 sudo apt-get install xxx
  对应的命令行卸载 sudo apt-get autoremove xxx
  更改权限 sudo chmod -R 777 /xxx
- 解压 sudo unzip xxx
+ 解压 sudo unzip xxx 
+      unzip -O GBK /xx/xx.zip -d /xx/
  打开文件 sudo gedit xxx
 
 0.安装Curl和Git
