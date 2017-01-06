@@ -23,20 +23,20 @@
 	*https://www.phusionpassenger.com/library/deploy/nginx/deploy/ruby/
 1.gem install passenger
 2.passenger-install-nginx-module
-3.按提示安装nginx成功,配置nginx.conf文件
-4./opt/nginx/conf/nginx.conf下
-5.server {
+3.按提示安装nginx并且编译passenger成功,配置/opt/nginx/conf/nginx.conf文件
+4.server {
 		  #监听的端口
 		  listen	   8080;
 		  server_name  域名或ip地址;
-		  #web根目录，rails项目下的public
+		  #web根目录，rails项目下的public,使用pwd查看并使用绝对路径。目录权限改写为可读写和执行
 		  root /xx/xx/xx/public;
-		  #一定要记得将这个选项设置为on
+		  #一定要记得将这个选项设置为on，并且注释掉项目Gemfile中Puma或Webrick服务
 		  passenger_enabled on;
-	  }	
-6.停止nginx服务service nginx stop
-7.启动nginx服务sudo /opt/nginx/sbin/nginx
-8.杀死进程方法 netstat -ntpl,kill pid或sudo kill $(cat /opt/nginx/logs/nginx.pid)
+	  }
+5.防火墙拦截端口解决iptables -A INPUT -p tcp -m state --state NEW -m tcp --dport 8080 -j ACCEPT	
+6.杀死进程方法 netstat -ntpl,kill pid或sudo kill $(cat /opt/nginx/logs/nginx.pid)
+7.停止nginx服务service nginx stop
+8.启动nginx服务sudo /opt/nginx/sbin/nginx
 
 #使用rails shell命令查看数据库
 登录服务器ssh wujj@115.29.46.56 -p 1039   进入/disk1/xx/xx...目录
