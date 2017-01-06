@@ -19,6 +19,8 @@
 #终端命令输入历史ctrl+R
 
 #nginx+passenger部署Rails项目
+	*https://www.phusionpassenger.com/library/install/nginx/install/oss/rubygems_rvm/ 
+	*https://www.phusionpassenger.com/library/deploy/nginx/deploy/ruby/
 1.gem install passenger
 2.passenger-install-nginx-module
 3.按提示安装nginx成功,配置nginx.conf文件
@@ -26,15 +28,15 @@
 5.server {
 		  #监听的端口
 		  listen	   8080;
-		  server_name  外网ip;
-		  #web根目录，一定是rails项目下的public
-		  root /xx/xx/xx/public/;
+		  server_name  域名或ip地址;
+		  #web根目录，rails项目下的public
+		  root /xx/xx/xx/public;
 		  #一定要记得将这个选项设置为on
 		  passenger_enabled on;
 	  }	
 6.停止nginx服务service nginx stop
 7.启动nginx服务sudo /opt/nginx/sbin/nginx
-8.杀死进程方法 netstat -ntpl,kill pid
+8.杀死进程方法 netstat -ntpl,kill pid或sudo kill $(cat /opt/nginx/logs/nginx.pid)
 
 #使用rails shell命令查看数据库
 登录服务器ssh wujj@115.29.46.56 -p 1039   进入/disk1/xx/xx...目录
