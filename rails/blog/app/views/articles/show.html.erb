@@ -1,18 +1,18 @@
 <p>
-  <strong>Title:</strong>
+  <strong>标题</strong>
   <%= @article.title %>
 </p>
  
 <p>
-  <strong>Text:</strong>
+  <strong>内容</strong>
   <%= @article.text %>
 </p>
 
-<h2>Comments</h2>
+<h2>评论</h2>
 <!-- render 方法会遍历 @article.comments 集合，把每个评论赋值给一个和局部视图同名的本地变量，在这个例子中本地变量是 comment，这个本地变量可以在局部视图中使用。 -->
 <%= render @article.comments%>
  
-<h2>Add a comment:</h2>
+<h2>添加评论:</h2>
 <!-- 第二个 render 方法的参数就是要渲染的局部视图，即 comments/form。Rails 很智能，能解析其中的斜线，知道要渲染 app/views/comments 文件夹中的 _form.html.erb 模板 -->
 <%= render :partial => "comments/form" %>
 

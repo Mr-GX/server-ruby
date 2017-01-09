@@ -1,0 +1,32 @@
+<%= form_for @user,url:api_v1_users_path  do |f| %>
+
+  <p>
+    <%= f.label "姓名" %><br>
+    <%= f.text_field :name %>
+  </p>
+ 
+  <p>
+    <%= f.label "邮箱" %><br>
+    <%= f.text_area :email %>
+  </p>
+
+  <p>
+    <%= f.label "手机" %><br>
+    <%= f.text_area :mobile %>
+    <%= error_div(@user, :mobile, "")%>
+  </p>
+
+  <p>
+    <%= f.label "管理员" %><br>
+    <%= f.select :admin , options_for_select(User::ADMIN_STATUS.to_a) %>
+  </p>
+
+  <p>
+    <%= f.label "活性时间" %><br>
+    <%= f.text_area :activated %>
+  </p>
+ 
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
