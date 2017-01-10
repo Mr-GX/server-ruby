@@ -3,11 +3,13 @@
   <p>
     <%= f.label "姓名" %><br>
     <%= f.text_field :name %>
+    <%= error_div(@user, :name, "")%>
   </p>
  
   <p>
     <%= f.label "邮箱" %><br>
     <%= f.text_area :email %>
+    <%= error_div(@user, :email, "")%>
   </p>
 
   <p>
@@ -23,7 +25,8 @@
 
   <p>
     <%= f.label "活性时间" %><br>
-    <%= f.text_area :activated %>
+    <%= f.date_select :activated %>
+    <%= error_div(@user, :activated, "")%>
   </p>
  
   <p>
