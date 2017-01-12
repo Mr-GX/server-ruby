@@ -1,0 +1,4 @@
+1.Mongo::Error::OperationFailure no geo index :( ()
+  (bundle exec rake db:mongoid:create_indexes RAILS_ENV=xxx)
+2.NOAUTH Authentication required. (Redis::CommandError)
+  (redis-cli) and run (ping) to check if Redis is working and  (sudo service redis-server restart) to restart redis
