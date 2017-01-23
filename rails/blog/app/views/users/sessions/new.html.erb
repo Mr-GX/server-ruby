@@ -4,7 +4,7 @@
   .loginContainer_outer{
     max-width: 1920px;
     width: 100%; 
-    background: #ffffff url('../img/login_back_riz.jpg') no-repeat fixed top center ;
+    background: #ffffff url('../login_bg.jpg') no-repeat fixed top center ;
     background-size: 100%;
     margin:0;
     padding:0;
@@ -26,6 +26,7 @@
        <div class="sub_btn">
           <%= f.submit "登录" %>
         </div>
+        <%= link_to '注册', register_users_path %>
   <% end %>
  </div>
  </div>
