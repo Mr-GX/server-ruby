@@ -1,12 +1,9 @@
 class UsersController < ApplicationController
 	before_action :authenticate_user!
 	def index
-        @users=User.all
-    end
-	def login
-		
+		@users=User.all
 	end
-	def register
+	def show
 		
 	end
 end

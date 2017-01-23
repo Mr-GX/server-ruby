@@ -3,3 +3,6 @@
 <!-- 如果要链接到同一个控制器中的动作，不用指定 :controller 选项，因为默认情况下使用的就是当前控制器。 -->
 <%= link_to 'Blog', controller: 'articles' %>
 <%= link_to 'User', controller: 'users' %>
+<% if current_user %>
+    <%= link_to "退出", destroy_user_session_path, method: :delete, data:{confirm:'Are You Sure?'} %>
+<% end %>
