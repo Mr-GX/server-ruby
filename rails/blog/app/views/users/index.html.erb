@@ -1,0 +1,32 @@
+<style>
+th{
+  min-width: 100px;
+}
+
+table{
+  text-align: center;
+}
+</style>
+<h1>用户列表</h1>
+
+<table>
+  <tr>
+    <th>姓名</th>
+    <th>手机</th>
+    <th>邮箱</th>
+    <th>管理员</th>
+    <th>活性时间</th>
+  </tr>
+ 
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= user.name %></td>
+      <td><%= user.mobile %></td>
+      <td><%= user.email %></td>
+      <td><%= user.admin %></td>
+      <td><%= user.activated %></td>
+      <td><%= link_to 'Show', api_v1_user_path(user) %></td>
+      <td><%= link_to 'Delete', api_v1_user_path(user),method: :delete,data:{confirm:'Are You Sure?'} %></td>
+  <% end %>
+</table>
+<%= link_to '新建', new_api_v1_user_path %>
