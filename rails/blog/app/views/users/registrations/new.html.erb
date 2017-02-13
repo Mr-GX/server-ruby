@@ -15,6 +15,19 @@
     padding:0;
     border:none;
   }
+  .loginContainer{
+    margin: auto;
+    width: auto;
+  }
+  .inputContainer{
+    margin: auto;
+    padding: 10px;
+    vertical-align:middle;
+  }
+  .sub_btn{
+    margin: auto;
+    padding: 10px;
+  }
 </style>
 </head>
 <body>
@@ -22,40 +35,40 @@
   <div class="loginContainer">
 
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {enctype: "multipart/form-data"}) do |f| %>
-    <p>
-    <%= f.label "姓名" %><br>
+  <div class="inputContainer">
+    <%= f.label "姓名" %>
     <%= f.text_field :name %>
     <%= error_div(@user, :name, "")%>
-  </p>
+  </div>
  
-  <p>
-    <%= f.label "邮箱" %><br>
+  <div class="inputContainer">
+    <%= f.label "邮箱" %>
     <%= f.text_area :email %>
     <%= error_div(@user, :email, "")%>
-  </p>
+  </div>
 
-  <p>
-    <%= f.label "手机" %><br>
+  <div class="inputContainer">
+    <%= f.label "手机" %>
     <%= f.text_area :mobile %>
     <%= error_div(@user, :mobile, "")%>
-  </p>
+  </div>
 
-  <p>
-    <%= f.label "管理员" %><br>
+  <div class="inputContainer">
+    <%= f.label "管理员" %>
     <%= f.select :admin , options_for_select(User::ADMIN_STATUS.to_a) %>
-  </p>
+  </div>
 
-  <p>
-    <%= f.label "创建时间" %><br>
+  <div class="inputContainer">
+    <%= f.label "创建时间" %>
     <%= f.date_select :activated %>
     <%= error_div(@user, :activated, "")%>
-  </p>
+  </div>
 
-  <p>
-    <%= f.label "密码" %><br>
+  <div class="inputContainer">
+    <%= f.label "密码" %>
     <%= f.password_field :password %>
     <%= error_div(@user, :password, "")%>
-  </p>
+  </div>
   <div class="sub_btn">
     <%= f.submit "注册" %>
   </div>
