@@ -1,0 +1,13 @@
+<%= form_for([@course, @course.lecturers.build]) do |f| %>
+  <p>
+    <%= f.label "姓名" %><br>
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label "简介" %><br>
+    <%= f.text_area :desc %>
+  </p>
+  <p>
+    <%= f.submit "完成"%>
+  </p>
+<% end %>
