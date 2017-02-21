@@ -26,6 +26,6 @@ table{
       <td><%= user.admin %></td>
       <td><%= user.activated %></td>
       <td><%= link_to 'Show', api_v1_user_path(user) %></td>
-      <td><%= link_to 'Delete', api_v1_user_path(user),method: :delete,data:{confirm:'Are You Sure?'} %></td>
+      <td><%= link_to 'Delete', user_path(user),method: :delete,data:{confirm:'Are You Sure?'} %></td>
   <% end %>
 </table>
