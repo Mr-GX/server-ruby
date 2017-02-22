@@ -5,6 +5,7 @@ class LecturersController < ApplicationController
 
 	def create
 		@lecturer=Course.find(params[:course_id]).lecturers.new(lecturer_params)
+		# @lecturer.avatar=params[:avatar]
 		if @lecturer.save
 			redirect_to courses_path
 		else
@@ -14,6 +15,6 @@ class LecturersController < ApplicationController
 
 	private
 	def lecturer_params
-		params.require(:lecturer).permit(:name,:desc)
+		params.require(:lecturer).permit(:avatar,:name,:desc)
 	end
 end

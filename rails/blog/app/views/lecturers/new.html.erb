@@ -1,4 +1,12 @@
 <%= form_for([@course, @course.lecturers.build]) do |f| %>
+  <div class="form-group">
+                            <label>头像</label>
+                            <%= f.file_field :avatar, class: "form-control", style: "display:none" %>
+                          <div class="input-append ">
+                            <a class="btn btn-primary btn-lg btn-block btn-info" onclick="$('input[id=lecturer_avatar]').click();"><i class="glyphicon glyphicon-plus"></i>添加</a>
+                            <input id="photoCover" class="input-large form-control" type="text">
+                          </div>
+                          </div>
   <p>
     <%= f.label "姓名" %><br>
     <%= f.text_field :name %>
@@ -11,3 +19,9 @@
     <%= f.submit "完成"%>
   </p>
 <% end %>
+<script type="text/javascript">
+  //浏览文件效果
+  $('input[id=lecturer_avatar]').change(function() {
+    $('#photoCover').val($(this).val());
+  });
+  </script>
