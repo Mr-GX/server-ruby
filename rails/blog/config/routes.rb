@@ -18,9 +18,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :courses do
-    resources :lecturers
-  end
+  resources :courses
+  resources :lecturers
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   #设置程序首页
   root 'welcome#index'	

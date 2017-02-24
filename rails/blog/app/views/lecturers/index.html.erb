@@ -1,0 +1,21 @@
+<h1>讲师列表</h1>
+ 
+<table>
+  <tr>
+    <th>头像</th>
+    <th>姓名</th>
+    <th>简介</th>
+    <th colspan="3"></th>
+  </tr>
+ 
+  <% @lecturers.each do |lecturer| %>
+    <tr>
+      <td><%= lecturer.avatar %></td>
+      <td><%= lecturer.name %></td>
+      <td><%= lecturer.desc %></td>
+      <td><%= link_to 'Show', lecturer_path(lecturer) %></td>
+      <td><%= link_to 'Edit', edit_lecturer_path(lecturer) %></td>
+      <td><%= link_to 'Delete', lecturer_path(lecturer),method: :delete,data:{confirm:'Are You Sure?'} %></td>
+  <% end %>
+</table>
+<%= link_to '新建', new_lecturer_path %>
