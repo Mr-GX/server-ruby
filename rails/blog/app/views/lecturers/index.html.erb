@@ -10,7 +10,7 @@
  
   <% @lecturers.each do |lecturer| %>
     <tr>
-      <td><%= lecturer.avatar %></td>
+      <td><%= image_tag(lecturer.avatar,height:"36",width:"36",alt:"") %></td>
       <td><%= lecturer.name %></td>
       <td><%= lecturer.desc %></td>
       <td><%= link_to 'Show', lecturer_path(lecturer) %></td>
