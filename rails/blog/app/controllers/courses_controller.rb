@@ -3,7 +3,6 @@ class CoursesController < ApplicationController
 	before_action :set_course,only:[:show,:edit,:update,:destroy]
 	def new
 		@course=Course.new
-		@lecturers=Lecturer.all
 	end
 
 	def index
@@ -13,6 +12,10 @@ class CoursesController < ApplicationController
 	def create
 		@course=Course.new(course_params)
 		if @course.save
+			params[:lecturers].each do |lecturer_id|
+				lecturer=Lecturer.find(lecturer_id)
+				@course.lecturers << lecturer unless @course.lecturers.include?(lecturer)
+			end
 			redirect_to courses_path
 		else
 			render 'new'
@@ -28,6 +31,10 @@ class CoursesController < ApplicationController
 	end
 
 	def update
+		params[:lecturers].each do |lecturer_id|
+			lecturer=Lecturer.find(lecturer_id)
+			@course.lecturers << lecturer unless @course.lecturers.include?(lecturer)
+		end
 		if @course.update(course_params)
 			redirect_to courses_path
 		else

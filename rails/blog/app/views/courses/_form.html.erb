@@ -18,7 +18,10 @@
   </p>
   <p>
     <%= f.label "选择讲师" %><br>
-    <%= f.select :select_lecturer , options_for_select(Lecturer.all) %>
+    <% Lecturer.all.each do |lecturer| %>  
+      <%= check_box_tag 'lecturers[]', lecturer.id %>  
+      <%= label_tag lecturer.name %>  
+    <% end %>  
   </p>
   <p>
     <%= f.submit "完成"%>
