@@ -3,6 +3,7 @@ class CoursesController < ApplicationController
 	before_action :set_course,only:[:show,:edit,:update,:destroy]
 	def new
 		@course=Course.new
+		@lecturers=Lecturer.all
 	end
 
 	def index
@@ -39,7 +40,7 @@ class CoursesController < ApplicationController
 	end
 	private
 	def course_params
-		params.require(:course).permit(:tag,:title,:sub_title,:desc)
+		params.require(:course).permit(:tag,:title,:sub_title,:desc,:select_lecturer)
 	end
 
 	def set_course
