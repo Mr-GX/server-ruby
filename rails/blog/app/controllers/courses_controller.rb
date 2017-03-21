@@ -31,10 +31,12 @@ class CoursesController < ApplicationController
 	end
 
 	def update
-		params[:lecturers].each do |lecturer_id|
-			lecturer=Lecturer.find(lecturer_id)
-			@course.lecturers << lecturer unless @course.lecturers.include?(lecturer)
-		end
+		# params[:lecturers].each do |lecturer_id|
+		# 	lecturer=Lecturer.find(lecturer_id)
+		# 	@course.lecturers << lecturer unless @course.lecturers.include?(lecturer)
+		# end
+		lecturer=Lecturer.find(params[:lecturer]) if params[:lecturer].present?
+		@course.follow(lecturer) unless lecturer.nil?
 		if @course.update(course_params)
 			redirect_to courses_path
 		else

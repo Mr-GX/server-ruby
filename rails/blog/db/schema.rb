@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170316075225) do
+ActiveRecord::Schema.define(version: 20170321102443) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
@@ -44,6 +44,18 @@ ActiveRecord::Schema.define(version: 20170316075225) do
     t.integer "lecturer_id", null: false
     t.index ["course_id"], name: "index_courses_lecturers_on_course_id"
     t.index ["lecturer_id"], name: "index_courses_lecturers_on_lecturer_id"
+  end
+
+  create_table "follows", force: :cascade do |t|
+    t.string   "followable_type",                 null: false
+    t.integer  "followable_id",                   null: false
+    t.string   "follower_type",                   null: false
+    t.integer  "follower_id",                     null: false
+    t.boolean  "blocked",         default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["followable_id", "followable_type"], name: "fk_followables"
+    t.index ["follower_id", "follower_type"], name: "fk_follows"
   end
 
   create_table "lecturers", force: :cascade do |t|

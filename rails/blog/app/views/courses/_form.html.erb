@@ -19,7 +19,8 @@
   <p>
     <%= f.label "选择讲师" %><br>
     <% Lecturer.all.each do |lecturer| %>  
-      <%= check_box_tag 'lecturers[]', lecturer.id %>  
+      <%#= check_box_tag 'lecturers[]', lecturer.id %>  
+      <%= check_box_tag 'lecturer', lecturer.id %>  
       <%= label_tag lecturer.name %>  
     <% end %>  
   </p>
