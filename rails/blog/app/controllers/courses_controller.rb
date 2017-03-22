@@ -12,10 +12,8 @@ class CoursesController < ApplicationController
 	def create
 		@course=Course.new(course_params)
 		if @course.save
-			params[:lecturers].each do |lecturer_id|
-				lecturer=Lecturer.find(lecturer_id)
-				@course.lecturers << lecturer unless @course.lecturers.include?(lecturer)
-			end
+			lecturer=Lecturer.find(params[:lecturer]) if params[:lecturer].present?
+			@course.follow(lecturer) unless lecturer.nil?
 			redirect_to courses_path
 		else
 			render 'new'
@@ -35,6 +33,9 @@ class CoursesController < ApplicationController
 		# 	lecturer=Lecturer.find(lecturer_id)
 		# 	@course.lecturers << lecturer unless @course.lecturers.include?(lecturer)
 		# end
+		@course.all_following.each do |lecturer|
+			@course.stop_following(lecturer)
+		end
 		lecturer=Lecturer.find(params[:lecturer]) if params[:lecturer].present?
 		@course.follow(lecturer) unless lecturer.nil?
 		if @course.update(course_params)
