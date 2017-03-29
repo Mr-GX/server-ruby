@@ -1,0 +1,24 @@
+@charset "UTF-8";
+
+/*- Html Tags Reset -*/
+html { overflow-y:scroll; background-color:#fff;width: 100%; margin: 0;padding: 0;}
+body{width: 100%; }
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td, figure { padding:0; margin:0; }
+body { font:12px/1.5 "Microsoft YaHei",Helvetica,Tahoma,simsun,sans-serif; color:#333; background-color: #fff; }
+abbr,article,aside,bb,datagrid,datalist,details,dialog,event-source,figure,figcaption,footer,header,mark,menu,meter,nav,output,progress,section,time { display:block; height:auto; }
+table { border-collapse:collapse; border-spacing:0; }
+ol, ul { list-style:none outside; }
+h1, h2, h3, h4, h5, h6 { font-size:100%; }
+fieldset, img { border:0 none; vertical-align:middle; }
+a { color:#333333; text-decoration:none;outline: none; }
+a:hover {text-decoration:none;}
+em { font-style:normal; }
+textarea { overflow-y:auto; }
+input,select,textarea,button { font:14px "Microsoft YaHei",Tahoma,Helvetica,simsun,sans-serif;outline: none;}
+button { overflow:visible; vertical-align:middle; }
+button,label { cursor:pointer; }
+address, cite, dfn, em, var, i { font-style: normal; } /* 将斜体扶正 */
+.clearfix:after { content:"."; height:0; visibility:hidden; display:block; clear:both; font-size:0; line-height:0; }
+.clearfix { display:inline-block; }
+.clearfix { display:block; }
+.clearboth { overflow:hidden; height:1px; line-height:1; font-size:0; clear:both; }

@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+html {  background-color:#fff; }
+body, div, ul, li, p ,img{ padding:0; margin:0; }
+html,body{height: 100%}
+body { font:14px/1.5 "Microsoft YaHei",Helvetica,Tahoma,simsun,sans-serif; }
+ol, ul { list-style:none outside; }
+a {text-decoration:none;outline: none; }
+a:hover {text-decoration:none;}
+.clearfix:after { content:"."; height:0; visibility:hidden; display:block; clear:both; font-size:0; line-height:0; }
+.clearfix { display:inline-block; }
+.clearfix { display:block; }

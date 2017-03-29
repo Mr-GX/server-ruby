@@ -3,18 +3,20 @@ class LecturersController < ApplicationController
 	before_action :set_lecturer,only:[:show,:edit,:update,:destroy]
 	def new
 		@lecturer=Lecturer.new
+		render layout: "desk_page"
 	end
 
 	def index
 		@lecturers=Lecturer.all
+		render layout: "desk_page"
 	end
 
 	def show
-		
+		render layout: "desk_page"
 	end
 
 	def edit
-		
+		render layout: "desk_page"
 	end
 
 	def create

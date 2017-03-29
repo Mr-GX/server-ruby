@@ -3,10 +3,12 @@ class CoursesController < ApplicationController
 	before_action :set_course,only:[:show,:edit,:update,:destroy]
 	def new
 		@course=Course.new
+		render layout: "desk_page"
 	end
 
 	def index
 	    @courses=Course.all
+	    render layout: "desk_page"
 	end
 
 	def create
@@ -21,11 +23,11 @@ class CoursesController < ApplicationController
 	end
 
 	def show
-		
+		render layout: "desk_page"
 	end
 
 	def edit
-
+		render layout: "desk_page"
 	end
 
 	def update

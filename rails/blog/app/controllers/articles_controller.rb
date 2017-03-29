@@ -5,10 +5,12 @@ class ArticlesController < ApplicationController
 	before_action :authenticate_user!
 	def index
 		@articles=Article.all	
+		render layout: "desk_page"
 	end
 
 	def new
 		@article=Article.new
+		render layout: "desk_page"
 	end
 
 	def create
@@ -34,10 +36,12 @@ class ArticlesController < ApplicationController
 
 	def show
 		@article=Article.find(params[:id])	
+		render layout: "desk_page"
 	end
 
 	def edit
 		@article=Article.find(params[:id])	
+		render layout: "desk_page"
 	end
 
 	def update
