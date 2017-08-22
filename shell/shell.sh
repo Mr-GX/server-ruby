@@ -5,7 +5,7 @@ test_var='i am a var'
 echo $test_var
 
 for i in java ruby php; do
-	echo "iterator===>hello, $i" '!'
+   echo "iterator===>hello, $i" '!'
 done
 
 length_var='hello,shell'
