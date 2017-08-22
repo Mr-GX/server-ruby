@@ -1,5 +1,7 @@
 # RubyOnRails
 [Ruby](https://github.com/Mr-GX/RubyOnRails/blob/master/ruby)
 [Rails](https://github.com/Mr-GX/RubyOnRails/blob/master/rails/ServerRailsEnv.txt)
-`http://guides.ruby-china.org/`
+[Shell](https://github.com/Mr-GX/RubyOnRails/shell)
+`https://ruby-china.github.io/rails-guides/`
+`http://guides.rubyonrails.org/`
 `http://api.rubyonrails.org/`
