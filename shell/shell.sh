@@ -3,6 +3,7 @@ echo 'hello world!'
 
 test_var='i am a var' # 变量名和等号之间不能有空格
 echo $test_var
+echo "${test_var}abc"
 
 for i in java ruby php; do
    echo "iterator===>hello, $i" '!'
@@ -62,3 +63,43 @@ if [[ $a -lt 15 && $b -gt 100 ]]; then # 逻辑运算符
 else
 	echo 'neither nor'
 fi
+# =/!=/-z/-n/str 相等/不相等/长度0/长度不为0/不为空，true
+str1='abc'
+str2=''
+if [[ $str1 = $str2 ]] # 字符串运算符
+then
+	echo "$str1 = $str2"
+elif [ -z $str1 ]
+then
+	echo 'str1长度为0'
+elif [ $str2 ]
+then
+	echo 'str2不为空'
+else
+	echo 'str1不等于str2，且长度不为0。str2为空'
+fi
+# -b/-c/-d/-f/-g/-k/-p/-u/-r/-w/-x/-s/-e d是目录/r可读/w可写/x可执行/s文件大小大于0/e存在，true
+file='/Users/InSight/RubyOnRails/shell/shell.sh'
+if [ -d $file ]	# 文件测试运算符
+then
+	echo '文件是目录'
+elif [ -r $file ]
+then
+	echo '文件可写'
+fi
+
+echo 'test echo'
+echo test echo
+
+echo "\"test transferred meaning character\""
+
+echo -e 'ok! google \n test success'	# -e开启转义
+
+echo -e 'ok! google \c'	# \c不换行
+echo 'test success'
+
+echo 'output result to file' > output.txt
+
+echo '$str1\"' # 单引号不转义不引用变量
+
+echo `date`
