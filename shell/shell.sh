@@ -100,6 +100,12 @@ echo 'test success'
 
 echo 'output result to file' > output.txt
 
-echo '$str1\"' # 单引号不转义不引用变量
+echo '$str1\"' # 单引号不转义/不引用变量
 
 echo `date`
+
+printf "ok! google " # 不像echo默认换行
+printf "ok! google\n"
+
+printf "%-8s %-8s %-8s\n" 姓名 成绩 体重kg	# %-8s表示一个宽度8个字符，有-左对齐，否则右对齐
+printf "%-8s %-8d %-8.2f\n" 果果 65 52.8953	# %-8.2f格式化保留2位小数	
