@@ -14,7 +14,7 @@ default: &default
 
 development:
   <<: *default
-  username: xin.guo
+  username: xinguo
   database: ruby_development
   password: password
   encoding: utf8mb4
@@ -28,13 +28,13 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  username: xin.guo
+  username: xinguo
   password: password
   database: ruby_test
 
 production:
   <<: *default
-  username: xin.guo
+  username: xinguo
   database: ruby_production
   password: password
   encoding: utf8mb4
