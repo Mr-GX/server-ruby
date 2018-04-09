@@ -1,6 +1,6 @@
 #!/bin/bash
 source ~/.bash_profile
-DIR=/disk1/talenkr/production
+DIR=/disk1/rails/production
 cd $DIR
 bundle install
 RAILS_ENV=production rake db:migrate

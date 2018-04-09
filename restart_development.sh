@@ -1,9 +1,9 @@
 #!/bin/bash
 source ~/.bash_profile
-DIR=/disk1/talenkr/house
+DIR=/disk1/rails/dev
 cd $DIR
 bundle install
-RAILS_ENV=house rake db:migrate
-RAILS_ENV=house rake assets:precompile
+RAILS_ENV=development rake db:migrate
+RAILS_ENV=development rake assets:precompile
 passenger stop -p 3000
-passenger start -p 3000 -e house -d
+passenger start -p 3000 -e development -d

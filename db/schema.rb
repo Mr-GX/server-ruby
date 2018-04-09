@@ -10,76 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170322015609) do
+ActiveRecord::Schema.define(version: 20180409103346) do
 
-  create_table "articles", force: :cascade do |t|
-    t.string   "title"
-    t.text     "text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "comments", force: :cascade do |t|
-    t.string   "commenter"
-    t.text     "body"
-    t.integer  "article_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["article_id"], name: "index_comments_on_article_id"
-  end
-
-  create_table "courses", force: :cascade do |t|
-    t.text     "tag"
-    t.text     "banner"
-    t.string   "title"
-    t.string   "sub_title"
-    t.text     "desc"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "courses_lecturers", id: false, force: :cascade do |t|
-    t.integer "course_id",   null: false
-    t.integer "lecturer_id", null: false
-    t.index ["course_id"], name: "index_courses_lecturers_on_course_id"
-    t.index ["lecturer_id"], name: "index_courses_lecturers_on_lecturer_id"
-  end
-
-  create_table "follows", force: :cascade do |t|
-    t.string   "followable_type",                 null: false
-    t.integer  "followable_id",                   null: false
-    t.string   "follower_type",                   null: false
-    t.integer  "follower_id",                     null: false
-    t.boolean  "blocked",         default: false, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["followable_id", "followable_type"], name: "fk_followables"
-    t.index ["follower_id", "follower_type"], name: "fk_follows"
-  end
-
-  create_table "lecturers", force: :cascade do |t|
-    t.string   "avatar"
-    t.string   "name"
-    t.text     "desc"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "themes", force: :cascade do |t|
-    t.string   "avatar"
-    t.string   "title"
-    t.string   "desc"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "users", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "activated"
-    t.boolean  "admin"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.string   "mobile"
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -90,8 +23,10 @@ ActiveRecord::Schema.define(version: 20170322015609) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
 end

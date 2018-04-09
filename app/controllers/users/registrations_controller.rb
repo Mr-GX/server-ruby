@@ -9,17 +9,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    @user=User.new(user_params)
-    if @user.save
-      sign_in @user
-      if return_to = session.delete(:return_to)
-        redirect_to return_to
-      else
-        redirect_to welcome_index_path
-      end
-    else
-        render 'new'
-    end
   end
     
   # GET /resource/edit
