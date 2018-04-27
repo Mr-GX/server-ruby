@@ -9,13 +9,13 @@
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav w-50">
     <div class="w-25 ml-5">
-      <%= link_to 'Home',root_path,class:"nav-item nav-link active"%>
+      <%= link_to '首页',root_path,class:"nav-item nav-link active"%>
     </div>
     <div class="w-25">
-      <%= link_to 'Features',root_path,class:"nav-item nav-link"%>
+      <%= link_to '博客',topics_path,class:"nav-item nav-link"%>
     </div>
     <div class="w-25">
-      <%= link_to 'Resources',root_path,class:"nav-item nav-link"%>
+      <%= link_to '关于',about_homes_path,class:"nav-item nav-link"%>
     </div>
     </div>
   </div>
@@ -29,26 +29,27 @@
       <div class="row">
         <div class="col-12 col-md">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="d-block mb-2"><circle cx="12" cy="12" r="10"></circle><line x1="14.31" y1="8" x2="20.05" y2="17.94"></line><line x1="9.69" y1="8" x2="21.17" y2="8"></line><line x1="7.38" y1="12" x2="13.12" y2="2.06"></line><line x1="9.69" y1="16" x2="3.95" y2="6.06"></line><line x1="14.31" y1="16" x2="2.83" y2="16"></line><line x1="16.62" y1="12" x2="10.88" y2="21.94"></line></svg>
-          <small class="d-block mb-3 text-muted">©<%= link_to "京ICP备18020626号-1", "http://www.miitbeian.gov.cn/", class:"text-muted"%></small>
+          <small class="d-block mb-3 text-muted">© <%= link_to "京ICP备18020626号-1", "http://www.miitbeian.gov.cn/", class:"text-muted"%></small>
         </div>
         <div class="col-6 col-md">
-          <h5>Features</h5>
-          <ul class="list-unstyled text-small">
-            <li><%= link_to  "Contact", about_homes_path, class:"text-muted" %></li>
-          </ul>
+          <h5>博客</h5>
+          <div class="list-unstyled text-small">
+            <div class="div-inline"><%= link_to  image_tag("/images/Android.png", title: "Android"), topic_blogs_path(Topic.find_by_title("Android")||0), class:"text-muted" %></div>
+            <div class="div-inline"><%= link_to  image_tag("/images/ruby.png", title: "Ruby on Rails", size: '18'), topic_blogs_path(Topic.find_by_title("Ruby")||0), class:"text-muted" %></div>
+            <div class="div-inline"><%= link_to  image_tag("/images/spring.png", title: "Spring Boot", size: '24'), topic_blogs_path(Topic.find_by_title("Spring")||0), class:"text-muted" %></div>
+          </div>
         </div>
         <div class="col-6 col-md">
-          <h5>Resources</h5>
-          <ul class="list-unstyled text-small">
-            <li><%= link_to  "Business", about_homes_path, class:"text-muted" %></li>
-          </ul>
+          <h5>技术</h5>
+          <div class="list-unstyled text-small">
+            <div><%= link_to  image_tag("/images/github.png", title: "GitHub", size: '22'), "https://github.com/Mr-GX", class:"text-muted" %></div>
+          </div>
         </div>
         <div class="col-6 col-md">
-          <h5>About</h5>
+          <h5>关于</h5>
           <ul class="list-unstyled text-small">
-            <li><%= link_to  "Me", about_homes_path, class:"text-muted" %></li>
-            <li><%= link_to  "Locations", about_homes_path, class:"text-muted" %></li>
-            <li><%= link_to  "Privacy", about_homes_path, class:"text-muted" %></li>
+            <li><%= link_to  "Timeline", timeline_homes_path, class:"text-muted" %></li>
+            <li><%= link_to  "Address", "http://uri.amap.com/marker?position=116.471004,39.90774", class:"text-muted" %></li>
           </ul>
         </div>
       </div>
