@@ -1,8 +1,8 @@
-<div class="content">
+<div class="container content">
 <div class="card-deck">
 <% @topics.each do |item| %>
     <div class="card">
-    <%= image_tag  item.image, class:"card-img-top", style:"width:200px" %>
+    <%= image_tag  item.image, class:"card-img-top img-fluid"%>
       <div class="card-body">
         <h5 class="card-title"><%= item.title %></h5>
         <p class="card-text"><%= item.description %></p>

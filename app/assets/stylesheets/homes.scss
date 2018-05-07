@@ -7,7 +7,12 @@
   margin-right: 5px;
 } 
 .content {
-  margin: 100px !important;
+  padding-top: 120px;
+  height: auto;
+  min-height: 75vh;
+}
+.card-deck .card {
+  max-width: calc(25% - 30px);
 }
 .wrapper {
   background-color: #42A5F5;
