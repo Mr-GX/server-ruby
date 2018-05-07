@@ -1,10 +1,10 @@
 <div class="content">
-    <ul>
-        <% if !@blogs.blank? %>
-            <% @blogs.each do |item| %>
-                <li><%= link_to item.title, topic_blog_path(item.topic,item) %></li>
-            <% end %>
-            <%= paginate @blogs %>
+<div class="list-group">
+    <% if !@blogs.blank? %>
+        <% @blogs.each do |item| %>
+            <div class="list-group-item list-group-item-action"><%= link_to item.title, topic_blog_path(item.topic,item) %></div>
         <% end %>
-    </ul>
+        <%= paginate @blogs %>
+    <% end %>
+</div>
 </div>
