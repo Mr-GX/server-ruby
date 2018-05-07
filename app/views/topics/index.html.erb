@@ -1,6 +1,7 @@
 <div class="container content">
 <div class="card-deck">
-<% @topics.each do |item| %>
+<% if !@topics.blank? %>
+  <% @topics.each do |item| %>
     <div class="card">
     <%= image_tag  item.image, class:"card-img-top img-fluid"%>
       <div class="card-body">
@@ -9,6 +10,11 @@
         <%= button_to  "Go", topic_blogs_path(item.id), method:"get", class:"btn btn-primary" %>
       </div>
     </div>
+  <% end %>
+<% else %>
+  <div class="d-flex justify-content-center align-items-center">
+    <%= image_tag  "/images/search-color.gif"%>
+  </div>
 <% end %>
 </div>
 </div>
