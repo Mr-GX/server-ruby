@@ -1,3 +1,20 @@
-<div class="content">
-
+<div class="container content">
+<% if !@topics.blank? %>
+  <div class="card-deck">
+  <% @topics.each do |item| %>
+    <div class="card">
+    <%= image_tag  item.image, class:"card-img-top img-fluid"%>
+      <div class="card-body">
+        <h5 class="card-title"><%= item.title %></h5>
+        <p class="card-text"><%= item.description %></p>
+        <%= button_to  "Go", topic_blogs_path(item.id), method:"get", class:"btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+  </div>
+<% else %>
+  <div class="d-flex justify-content-center align-items-center">
+    <%= image_tag  "/images/search-color.gif"%>
+  </div>
+<% end %>
 </div>
