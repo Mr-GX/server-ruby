@@ -1,20 +1,20 @@
 <div class="container content">
   <div class="card-deck">
-    <a href="#" class="card text-white bg-info mb-3" style="min-width:200px;text-decoration:none">
+    <a href="<%= admin_users_path %>" class="card text-white bg-info mb-3" style="min-width:200px;text-decoration:none">
         <div class="card-header">用户</div>
         <div class="card-body">
             <h5 class="card-title">用户数量</h5>
             <p class="card-text"><%= User.count %></p>
         </div>
     </a>
-    <a href="#" class="card text-white bg-warning mb-3" style="min-width:200px;text-decoration:none">
+    <a href="<%= admin_topics_path %>" class="card text-white bg-warning mb-3" style="min-width:200px;text-decoration:none">
         <div class="card-header">博客分类</div>
         <div class="card-body">
             <h5 class="card-title">分类数量</h5>
             <p class="card-text"><%= Topic.count %></p>
         </div>
     </a>
-    <a href="#" class="card text-white bg-success mb-3" style="min-width:200px;text-decoration:none">
+    <a href="<%= admin_blogs_path %>" class="card text-white bg-success mb-3" style="min-width:200px;text-decoration:none">
         <div class="card-header">博客</div>
         <div class="card-body">
             <h5 class="card-title">博客总量</h5>

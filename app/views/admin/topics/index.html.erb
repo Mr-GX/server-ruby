@@ -1,0 +1,27 @@
+<div class="container content">
+<%= button_to  "新建", new_admin_topic_path, method: :get, class:"btn btn-primary form-label-group float-right" %>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">名称</th>
+      <th scope="col">描述</th>
+      <th scope="col">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @topics.each do |item|%>
+    <tr>
+      <th scope="row"><%= item.id %></th>
+      <td><%= item.title %></td>
+      <td><%= item.description %></td>
+      <td>
+      <%= link_to  "Show", admin_topic_path(item.id) %>
+      <%= link_to  "Edit", edit_admin_topic_path(item.id) %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @topics %>
+</div>

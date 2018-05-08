@@ -5,11 +5,16 @@ Rails.application.routes.draw do
 
   devise_for :users , controllers: {registrations: 'users/registrations',sessions: 'users/sessions',passwords: "users/passwords"}
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  resources :topics do
-    resources :blogs
+  resources :topics, only:[:index] do
+    resources :blogs, only:[:index,:show] do
+    end
   end
   namespace :admin do
     resources :homes, path: '/', only:[:index] do
+    end
+    resources :topics
+    resources :blogs
+    resources :users, only:[:index,:show] do
     end
   end
   namespace :api do
