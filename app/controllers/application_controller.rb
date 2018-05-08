@@ -13,9 +13,8 @@ class ApplicationController < ActionController::Base
   end
   
   def authenticate_admin
-    # current_user.user_type == USER_TYPE_SUPER
-    unless user_signed_in?
-      render "admin/homes/index"
+    unless user_signed_in? && current_user.user_type == USER_TYPE_ADMIN
+      redirect_to root_path
     end
   end
 end

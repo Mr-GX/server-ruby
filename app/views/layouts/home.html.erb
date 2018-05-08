@@ -26,13 +26,12 @@
 <div class="site-header sticky-top py-1">
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
 <div class="container d-flex flex-column flex-md-row justify-content-between">
-  <%= image_tag "/images/me.jpg",class:"img-thumbnail rounded-circle",style:"width:75px;height:75px" %>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav w-50">
-    <div class="w-25 ml-5">
+    <div class="navbar-nav w-75">
+    <div class="w-25">
       <%= link_to '首页',root_path,class:"nav-item nav-link active"%>
     </div>
     <div class="w-25">
@@ -42,6 +41,18 @@
       <%= link_to '关于',about_homes_path,class:"nav-item nav-link active"%>
     </div>
     </div>
+  <% if user_signed_in? %>
+    <div class="dropdown">
+      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <%= current_user.email %>
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <%= link_to  "注销", destroy_user_session_path, class:"dropdown-item" %>
+      </div>
+    </div>
+    <% else %>
+        <%=link_to '登录',new_user_session_path,class: "btn btn-primary" %>
+    <% end %>
   </div>
   </div>
   </div>
