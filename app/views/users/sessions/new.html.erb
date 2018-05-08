@@ -1,0 +1,27 @@
+<div class="container-fluid bg-light" style="height:100%">
+<div class="center-vertical container shadow-lg p-3 mb-5 bg-white rounded" style="padding:50px;width:600px">
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="field form-label-group">
+    <%= f.email_field :email, autofocus: true, placeholder: "请输入邮箱", autocomplete: "email", class:"form-control ds-input" %>
+  </div>
+
+  <div class="field form-label-group">
+    <%= f.password_field :password, placeholder: "请输入密码", autocomplete: "off", class:"form-control ds-input" %>
+  </div>
+
+  <% if devise_mapping.rememberable? -%>
+    <div class="field align-text-bottom">
+      <%= f.check_box :remember_me %>
+      <%= f.label "记住我" %>
+    </div>
+  <% end -%>
+
+  <div class="actions text-center form-label-group">
+    <%= f.submit "登录", class:"container btn btn-primary" %>
+  </div>
+<% end %>
+
+<%= render "users/shared/links" %>
+</div>
+</div>

@@ -1,7 +1,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
 # before_action :configure_sign_up_params, only: [:create]
 # before_action :configure_account_update_params, only: [:update]
-
+  layout 'desk'
   # GET /resource/sign_up
   def new
     super
@@ -9,6 +9,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
+    return unless params[:user][:password] == params[:user][:password_confirmation]
+    user = User.find_by_email(params[:user][:email])
+    return if user.present?
+    user = User.new(email: params[:user][:email], password: params[:user][:password],user_type: USER_TYPE_INITIAL)
+    if user.save
+      redirect_to new_user_session_path
+    else
+      redirect_to new_user_registration_path
+    end
   end
     
   # GET /resource/edit
