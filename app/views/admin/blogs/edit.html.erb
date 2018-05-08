@@ -1,0 +1,31 @@
+<div class="container content">
+    <%= form_for([:admin, @blog]) do |f| %>
+        <div class="field form-label-group">
+            <%= f.label "社区" %>
+            <%= f.collection_select :topic_id, Topic.all, :id, :title, class:"custom-select" %>
+        </div>
+        <div class="field form-label-group">
+            <%= f.label "封面" %>
+            <%= f.text_field :image, autofocus: true, class:"form-control ds-input" %>
+        </div>
+        <div class="field form-label-group">
+            <%= f.label "标题" %>
+            <%= f.text_field :title, class:"form-control ds-input" %>
+        </div>
+        <div class="field form-label-group">
+            <%= f.label "描述" %>
+            <%= f.hidden_field :description, autocomplete: "off", id: "editor", class:"form-control ds-input" %>
+        </div>
+        <div class="actions text-center form-label-group">
+            <%= f.submit "更新", class:"container btn btn-primary" %>
+        </div>
+    <% end %>
+</div>
+<script type="text/javascript">
+  var editor = new Simditor({
+          textarea: $('#editor'),
+          pasteImage: true,
+          defaultImage: '<%= image_tag "upload-loading.png" %>',
+          upload: {url: '/upload'}
+      });
+</script>

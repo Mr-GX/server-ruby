@@ -1,0 +1,29 @@
+<div class="container content">
+<%= button_to  "新建", new_admin_blog_path, method: :get, class:"btn btn-primary form-label-group float-right" %>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">名称</th>
+      <th scope="col">社区</th>      
+      <th scope="col">作者</th>
+      <th scope="col">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @blogs.each do |item|%>
+    <tr>
+      <th scope="row"><%= item.id %></th>
+      <td><%= item.title %></td>
+      <td><%= item.topic.title %></td>
+      <td><%= item.user.email %></td>
+      <td>
+      <%= link_to  "Show", topic_blog_path(item.topic.id,item.id) %>
+      <%= link_to  "Edit", edit_admin_blog_path(item.id) %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @blogs %>
+</div>
