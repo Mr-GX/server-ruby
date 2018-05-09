@@ -25,11 +25,13 @@ class Admin::TopicsController < ApplicationController
     end
 
     def update
-        if params[:topic][:image]
-            topic.remove_image!
-            topic.save
+        @topic.title = params[:topic][:title]
+        @topic.description = params[:topic][:description]
+        if params[:topic][:image].present?
+            @topic.remove_image!
+            @topic.image = params[:topic][:image]
         end
-        if @topic.update(image:params[:topic][:image],title:params[:topic][:title],description:params[:topic][:description])
+        if @topic.save
             redirect_to admin_topics_path
         else
             render "edit"
