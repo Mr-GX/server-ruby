@@ -12,8 +12,10 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :homes, path: '/', only:[:index] do
     end
-    resources :topics
-    resources :blogs
+    resources :topics do
+    end
+    resources :blogs do
+    end
     resources :users, only:[:index,:show] do
     end
   end
