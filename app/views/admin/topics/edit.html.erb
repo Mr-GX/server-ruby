@@ -1,5 +1,5 @@
 <div class="container content">
-    <%= form_for([:admin, @topic]) do |f| %>
+    <%= form_for @topic,url:admin_topic_path do |f| %>
         <div class="field form-label-group">
             <%= f.label "封面" %>
             <%= f.file_field :image, accept: "image/jpeg, image/jpg, image/gif, image/png", class:"form-control ds-input" %>
