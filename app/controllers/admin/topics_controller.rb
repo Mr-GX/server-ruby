@@ -25,6 +25,10 @@ class Admin::TopicsController < ApplicationController
     end
 
     def update
+        if params[:topic][:image]
+            topic.remove_image!
+            topic.save
+        end
         if @topic.update(image:params[:topic][:image],title:params[:topic][:title],description:params[:topic][:description])
             redirect_to admin_topics_path
         else
@@ -35,7 +39,7 @@ class Admin::TopicsController < ApplicationController
     private
     
     def topic_params
-        params.require(:topic).permit(:image, :title, :description)
+        params.require(:topic).permit(:title, :description, {image: []})
     end
 
     def topic

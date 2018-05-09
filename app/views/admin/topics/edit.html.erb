@@ -2,7 +2,7 @@
     <%= form_for([:admin, @topic]) do |f| %>
         <div class="field form-label-group">
             <%= f.label "封面" %>
-            <%= f.text_field :image, autofocus: true, class:"form-control ds-input" %>
+            <%= f.file_field :image, accept: "image/jpeg, image/jpg, image/gif, image/png", class:"form-control ds-input" %>
         </div>
         <div class="field form-label-group">
             <%= f.label "标题" %>
