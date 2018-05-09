@@ -193,7 +193,7 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
-  carrierwave (~> 1.0)
+  carrierwave (~> 1.2.2)
   coffee-rails (~> 4.2)
   devise
   jbuilder (~> 2.5)

@@ -39,7 +39,7 @@ class Admin::TopicsController < ApplicationController
     private
     
     def topic_params
-        params.require(:topic).permit(:title, :description, {image: []})
+        params.require(:topic).permit(:title, :description)
     end
 
     def topic
