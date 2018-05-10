@@ -13,10 +13,25 @@
 .card-deck .card {
   max-width: calc(25% - 30px);
 }
+.carousel {
+  height: 50vh;
+  width: 100%;
+}
+.carousel-item {
+  height: 50vh;
+  width: 100%;
+  display: inline-block;
+  overflow:hidden;
+  background: no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 .wrapper {
   background-color: #42A5F5;
   width: 100%;
-  min-height: 100vh;
+  min-height: 75vh;
   height: 100%;
   color: #fff;
   padding: 100px 20px 200px;
