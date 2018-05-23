@@ -32,6 +32,16 @@ class Admin::BlogsController < ApplicationController
         end
     end
 
+    def upload_image
+        uploaded_io = params[:upload_file]
+        dir = Rails.root.join('public', 'uploads', "images")
+        Dir.mkdir(dir) unless Dir.exist?(dir)
+        File.open(dir.join(uploaded_io.original_filename), 'wb') do |file|
+            file.write(uploaded_io.read)
+        end
+        render json: { :success=> true ,:file_path=> dir+uploaded_io.original_filename}
+    end
+
     private
     
     def blog_params

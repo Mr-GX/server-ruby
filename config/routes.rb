@@ -15,6 +15,9 @@ Rails.application.routes.draw do
     resources :topics do
     end
     resources :blogs do
+      collection do
+        post :upload_image
+      end
     end
     resources :users, only:[:index,:show] do
     end

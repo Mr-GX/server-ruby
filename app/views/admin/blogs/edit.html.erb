@@ -25,7 +25,6 @@
   var editor = new Simditor({
           textarea: $('#editor'),
           pasteImage: true,
-          defaultImage: '<%= image_tag "upload-loading.png" %>',
-          upload: {url: '/upload'}
+          upload: {url: '<%= upload_image_admin_blogs_path%>'}
       });
 </script>
