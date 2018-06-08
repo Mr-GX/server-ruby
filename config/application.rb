@@ -13,6 +13,6 @@ module OurZone
     # -- all .rb files in that directory are automatically loaded.
   end
 
-  config.active_record.default_timezone = :local 
   config.time_zone = "Beijing"
+  config.active_record.default_timezone = :local 
 end
