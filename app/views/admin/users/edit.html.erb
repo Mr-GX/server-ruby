@@ -1,0 +1,15 @@
+<div class="container content">
+    <%= form_for([:admin, @user]) do |f| %>
+        <div class="field form-label-group">
+            <%= f.label "昵称" %>
+            <%= f.text_field :nick_name, class:"form-control ds-input" %>
+        </div>
+        <div class="field form-label-group">
+            <%= f.label "手机号" %>
+            <%= f.text_field :mobile, autocomplete: "off", class:"form-control ds-input" %>
+        </div>
+        <div class="actions text-center form-label-group">
+            <%= f.submit "更新", class:"container btn btn-primary" %>
+        </div>
+    <% end %>
+</div>

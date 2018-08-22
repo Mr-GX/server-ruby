@@ -1,5 +1,5 @@
 <div class="container content">
-    <%= form_for @blog,url:admin_blog_path do |f| %>
+    <%= form_for([:admin,@blog]) do |f| %>
         <div class="field form-label-group">
             <%= f.label "社区" %>
             <%= f.collection_select :topic_id, Topic.all, :id, :title, class:"custom-select" %>
