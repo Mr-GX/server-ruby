@@ -16,8 +16,7 @@
       <td><%= item.title %></td>
       <td><%= item.description %></td>
       <td>
-      <%= link_to  "Show", admin_topic_path(item.id) %>
-      <%= link_to  "Edit", edit_admin_topic_path(item.id) %>
+      <%= link_to  "编辑", edit_admin_topic_path(item.id) %>
       </td>
     </tr>
     <% end %>

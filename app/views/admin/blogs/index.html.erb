@@ -18,8 +18,8 @@
       <td><%= item.topic.title %></td>
       <td><%= item.user.email %></td>
       <td>
-      <%= link_to  "Show", topic_blog_path(item.topic.id,item.id) %>
-      <%= link_to  "Edit", edit_admin_blog_path(item.id) %>
+      <%= link_to  "查看", topic_blog_path(item.topic.id,item.id) %>
+      <%= link_to  "编辑", edit_admin_blog_path(item.id) %>
       </td>
     </tr>
     <% end %>
