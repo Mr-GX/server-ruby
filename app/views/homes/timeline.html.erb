@@ -1,53 +1,58 @@
-<div class="wrapper">
-<section class="block">
-  <div class="each-year">
-  <div class="title">2018</div>
-  <div class="each-event">
-    <div class="event-description">
-      5月<br>
-      业余时间搭建博客网站
-    </div>
-  </div>
-
+<% content_for :css do %>
+<% end %>
+<% content_for :html do %>
+  <div class="wrapper">
+  <section class="block">
+    <div class="each-year">
+    <div class="title">2018</div>
     <div class="each-event">
       <div class="event-description">
-        4月<br>
-        购买一台云服务器
+        5月<br>
+        业余时间搭建博客网站
       </div>
     </div>
-    </div>
-</section>
 
-<section class="block">
-  <div class="each-year">
-  <div class="title">2017</div>
-    <div class="each-event">
-      <div class="event-description">
-        计划搭建一个技术网站
+      <div class="each-event">
+        <div class="event-description">
+          4月<br>
+          购买一台云服务器
+        </div>
+      </div>
+      </div>
+  </section>
+
+  <section class="block">
+    <div class="each-year">
+    <div class="title">2017</div>
+      <div class="each-event">
+        <div class="event-description">
+          计划搭建一个技术网站
+        </div>
       </div>
     </div>
+  </section>
   </div>
-</section>
-</div>
-<script>
-var $element=$('.each-event, .title');
-var $window = $(window);
-$window.on('scroll resize', check_for_fade);
-$window.trigger('scroll');
-function check_for_fade() { 
-    var window_height = $window.height();
-    
-    $.each($element, function (event) {
-        var $element = $(this);
-        var element_height = $element.outerHeight();
-        var element_offset = $element.offset().top;
-        space = window_height - (element_height + element_offset -$(window).scrollTop());
-        if (space < 60) {
-            $element.addClass("non-focus");
-        } else {
-            $element.removeClass("non-focus");
-        }
- 
-    });
-};
-</script>
+<% end %>
+<% content_for :js do %>
+  <script>
+  var $element=$('.each-event, .title');
+  var $window = $(window);
+  $window.on('scroll resize', check_for_fade);
+  $window.trigger('scroll');
+  function check_for_fade() { 
+      var window_height = $window.height();
+      
+      $.each($element, function (event) {
+          var $element = $(this);
+          var element_height = $element.outerHeight();
+          var element_offset = $element.offset().top;
+          space = window_height - (element_height + element_offset -$(window).scrollTop());
+          if (space < 60) {
+              $element.addClass("non-focus");
+          } else {
+              $element.removeClass("non-focus");
+          }
+      });
+  };
+  </script>
+<% end %>

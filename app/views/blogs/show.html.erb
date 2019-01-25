@@ -1,12 +1,18 @@
-<div class="container content">
-    <div class="text-center"><%= @blog.title %></div>
-    <div class="row justify-content-center">
-        <i class="far fa-clock" style="padding: 5px;color: #b2b3b5"><span style="margin-left: 5px"><%= @blog.created_at.strftime("%Y/%m/%d") %></span></i>
-        <i class="far fa-user" style="padding: 5px;color: #b2b3b5"><span style="margin-left: 5px"><%= @blog.user.email %></span></i>
-    </div>
-    <div class="row"  style="padding: 3vh">
-        <div class="col-12 editor-style">
-            <%= @blog.description.html_safe %>
+<% content_for :css do %>
+<% end %>
+<% content_for :html do %>
+    <div class="container content">
+        <div class="text-center"><%= @blog.title %></div>
+        <div class="row justify-content-center">
+            <i class="far fa-clock" style="padding: 5px;color: #b2b3b5"><span style="margin-left: 5px"><%= @blog.created_at.strftime("%Y/%m/%d") %></span></i>
+            <i class="far fa-user" style="padding: 5px;color: #b2b3b5"><span style="margin-left: 5px"><%= @blog.user.email %></span></i>
+        </div>
+        <div class="row"  style="padding: 3vh">
+            <div class="col-12 editor-style">
+                <%= @blog.description.html_safe %>
+            </div>
         </div>
     </div>
-</div>
+<% end %>
+<% content_for :js do %>
+<% end %>

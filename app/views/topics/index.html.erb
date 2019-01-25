@@ -1,26 +1,32 @@
-<style type="text/css">
-body{ 
-  background-color: #00000000 !important 
-  }
-</style>
-<div class="container content">
-<% if !@topics.blank? %>
-  <div class="card-deck">
-  <% @topics.each do |item| %>
-    <div class="card">
-    <%= image_tag  item.image.normal.url||"", class:"card-img-top img-fluid"%>
-      <div class="card-body">
-        <h5 class="card-title"><%= item.title %></h5>
-        <p class="card-text"><%= item.description %></p>
-        <%= button_to  "Go", topic_blogs_path(item.id), method:"get", class:"btn btn-primary" %>
+<% content_for :css do %>
+  <style type="text/css">
+  body{ 
+    background-color: #00000000 !important 
+    }
+  </style>
+<% end %>
+<% content_for :html do %>
+  <div class="container content">
+  <% if !@topics.blank? %>
+    <div class="card-deck">
+    <% @topics.each do |item| %>
+      <div class="card">
+      <%= image_tag  item.image.normal.url||"", class:"card-img-top img-fluid"%>
+        <div class="card-body">
+          <h5 class="card-title"><%= item.title %></h5>
+          <p class="card-text"><%= item.description %></p>
+          <%= button_to  "Go", topic_blogs_path(item.id), method:"get", class:"btn btn-primary" %>
+        </div>
       </div>
+    <% end %>
+    </div>
+  <% else %>
+    <div class="d-flex justify-content-center align-items-center">
+      <%= image_tag  "/images/search-color.gif"%>
     </div>
   <% end %>
   </div>
-<% else %>
-  <div class="d-flex justify-content-center align-items-center">
-    <%= image_tag  "/images/search-color.gif"%>
-  </div>
 <% end %>
-</div>
-<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+<% content_for :js do %>
+  <script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+<% end %>
