@@ -1,18 +1,24 @@
-<div class="container-fluid bg-light" style="height:100%">
-<div class="center-vertical container shadow-lg p-3 mb-5 bg-white rounded" style="padding:50px;width:600px">
+<% content_for :css do %>
+<% end %>
+<% content_for :html do %>
+  <div class="container-fluid bg-light" style="height:100%">
+  <div class="center-vertical container shadow-lg p-3 mb-5 bg-white rounded" style="padding:50px;width:600px">
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= devise_error_messages! %>
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+    <%= devise_error_messages! %>
 
-  <div class="field form-label-group">
-    <%= f.email_field :email, autofocus: true, placeholder: "请输入邮箱", autocomplete: "email", class:"form-control ds-input" %>
+    <div class="field form-label-group">
+      <%= f.email_field :email, autofocus: true, placeholder: "请输入邮箱", autocomplete: "email", class:"form-control ds-input" %>
+    </div>
+
+    <div class="actions text-center form-label-group">
+      <%= f.submit "发送邮件修改密码", class:"container btn btn-primary" %>
+    </div>
+  <% end %>
+
+  <%= render "users/shared/links" %>
   </div>
-
-  <div class="actions text-center form-label-group">
-    <%= f.submit "发送邮件修改密码", class:"container btn btn-primary" %>
   </div>
 <% end %>
-
-<%= render "users/shared/links" %>
-</div>
-</div>
+<% content_for :js do %>
+<% end %>
