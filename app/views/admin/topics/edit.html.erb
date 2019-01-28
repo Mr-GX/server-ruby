@@ -1,19 +1,25 @@
-<div class="container content">
-    <%= form_for([:admin,@topic])  do |f| %>
-        <div class="field form-label-group">
-            <%= f.label "封面" %>
-            <%= f.file_field :image, accept: "image/jpeg, image/jpg, image/gif, image/png", class:"form-control ds-input" %>
-        </div>
-        <div class="field form-label-group">
-            <%= f.label "标题" %>
-            <%= f.text_field :title, class:"form-control ds-input" %>
-        </div>
-        <div class="field form-label-group">
-            <%= f.label "描述" %>
-            <%= f.text_field :description, autocomplete: "off", class:"form-control ds-input" %>
-        </div>
-        <div class="actions text-center form-label-group">
-            <%= f.submit "更新", class:"container btn btn-primary" %>
-        </div>
-    <% end %>
-</div>
+<% content_for :css do %>
+<% end %>
+<% content_for :html do %>
+    <div class="container content">
+        <%= form_for([:admin,@topic])  do |f| %>
+            <div class="field form-label-group">
+                <%= f.label "封面" %>
+                <%= f.file_field :image, accept: "image/jpeg, image/jpg, image/gif, image/png", class:"form-control ds-input" %>
+            </div>
+            <div class="field form-label-group">
+                <%= f.label "标题" %>
+                <%= f.text_field :title, class:"form-control ds-input" %>
+            </div>
+            <div class="field form-label-group">
+                <%= f.label "描述" %>
+                <%= f.text_field :description, autocomplete: "off", class:"form-control ds-input" %>
+            </div>
+            <div class="actions text-center form-label-group">
+                <%= f.submit "更新", class:"container btn btn-primary" %>
+            </div>
+        <% end %>
+    </div>
+<% end %>
+<% content_for :js do %>
+<% end %>
