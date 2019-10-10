@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::RoutingError, :with => :render_404
 
   def add_default_params
-    @per_page = params[:per_page].present? ? (params[:per_page].to_i) : 10
+    @per_page = params[:per_page].present? ? (params[:per_page].to_i) : 20
     @page = params[:page].present? ? params[:page] : 1
   end
 
