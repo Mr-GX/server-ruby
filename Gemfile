@@ -32,7 +32,7 @@ gem 'jbuilder'
 
 gem 'devise'
 gem 'carrierwave', '~> 1.2.2'
-gem 'kaminari', '~> 1.1.1'
+gem 'kaminari', '~> 1.2.1'
 gem 'simditor'
 # 图片处理
 gem 'mini_magick'
