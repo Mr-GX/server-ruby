@@ -31,7 +31,7 @@ gem 'jbuilder'
 # gem 'capistrano-rails', group: :development
 
 gem 'devise'
-gem 'carrierwave', '~> 1.2.2'
+gem 'carrierwave', '~> 1.3.2'
 gem 'kaminari', '~> 1.1.1'
 gem 'simditor'
 # 图片处理
